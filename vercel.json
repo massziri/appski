@@ -1,5 +1,7 @@
 {
+  "buildCommand": "echo 'Pre-built Flutter Web'",
   "outputDirectory": "build/web",
+  "framework": null,
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
