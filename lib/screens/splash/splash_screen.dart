@@ -55,7 +55,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Macedonian Sun emblem
                     Container(
                       width: 120,
                       height: 120,
@@ -73,10 +72,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                         ],
                       ),
                       child: const Center(
-                        child: Text(
-                          '☀',
-                          style: TextStyle(fontSize: 60),
-                        ),
+                        child: Text('☀', style: TextStyle(fontSize: 60)),
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -120,22 +116,5 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         ),
       ),
     );
-  }
-}
-
-class AnimatedBuilder extends AnimatedWidget {
-  final Widget Function(BuildContext, Widget?) builder;
-
-  const AnimatedBuilder({
-    super.key,
-    required super.listenable,
-    required this.builder,
-  });
-
-  Animation<double> get animation => listenable as Animation<double>;
-
-  @override
-  Widget build(BuildContext context) {
-    return builder(context, null);
   }
 }

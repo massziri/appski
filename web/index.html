@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Appski - Macedonian Community of Australia">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Appski">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Appski - Macedonian Community of Australia</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      background-color: #1A1A2E;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .loading .sun {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #D4A843, #C41E3A);
+      box-shadow: 0 0 40px rgba(196, 30, 58, 0.4);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .loading h1 {
+      color: #FFFFFF;
+      font-size: 28px;
+      letter-spacing: 6px;
+      margin-top: 24px;
+    }
+    .loading p {
+      color: #D4A843;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-top: 4px;
+    }
+    .loading .bar-container {
+      width: 200px;
+      height: 3px;
+      background: #16213E;
+      border-radius: 2px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    .loading .bar {
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, #C41E3A, #D4A843);
+      border-radius: 2px;
+      animation: slide 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    @keyframes slide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(350%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading" id="loading">
+    <div class="sun"></div>
+    <h1>APPSKI</h1>
+    <p>Connecting Our Community</p>
+    <div class="bar-container"><div class="bar"></div></div>
+  </div>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
