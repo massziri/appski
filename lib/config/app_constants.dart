@@ -2,11 +2,11 @@ class AppConstants {
   static const String appName = 'Appski';
   static const String appVersion = '1.0.0';
   static const String orgName = 'Macedonian Community of Australia Inc.';
-  static const String supportEmail = 'info@macedoniancommunity.org.au';
-  static const String supportPhone = '+61 3 9000 0000';
+  static const String supportEmail = 'info@appski.com.au';
+  static const String supportPhone = '0410 10 40 30';
   
   // Placeholder URLs - Client to fill
-  static const String websiteUrl = 'https://macedoniancommunity.org.au';
+  static const String websiteUrl = 'https://www.appski.com.au';
   static const String facebookUrl = 'https://facebook.com/MacedonianCommunityAU';
   static const String instagramUrl = 'https://instagram.com/macedoniancommunityau';
   static const String youtubeUrl = 'https://youtube.com/@macedoniancommunityau';

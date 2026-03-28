@@ -50,13 +50,13 @@ class EventCard extends StatelessWidget {
                   ),
                   child: Text(
                     '$daysUntil days away',
-                    style: const TextStyle(color: AppColors.white, fontSize: 11, fontWeight: FontWeight.w600),
+                    style: const TextStyle(color: AppColors.darkText, fontSize: 11, fontWeight: FontWeight.w600),
                   ),
                 ),
               const SizedBox(height: 8),
               Text(
                 event.getTitle(lang),
-                style: const TextStyle(color: AppColors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(color: AppColors.darkText, fontSize: 18, fontWeight: FontWeight.bold),
                 maxLines: 2,
               ),
               const SizedBox(height: 4),
@@ -66,7 +66,7 @@ class EventCard extends StatelessWidget {
                   const SizedBox(width: 6),
                   Text(
                     DateFormat('MMM dd, yyyy • h:mm a').format(event.startDate),
-                    style: const TextStyle(color: AppColors.lightGrey, fontSize: 12),
+                    style: const TextStyle(color: AppColors.bodyText, fontSize: 12),
                   ),
                 ],
               ),
@@ -77,7 +77,7 @@ class EventCard extends StatelessWidget {
                   const SizedBox(width: 6),
                   Text(
                     event.venue,
-                    style: const TextStyle(color: AppColors.lightGrey, fontSize: 12),
+                    style: const TextStyle(color: AppColors.bodyText, fontSize: 12),
                   ),
                 ],
               ),

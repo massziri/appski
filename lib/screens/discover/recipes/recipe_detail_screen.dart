@@ -13,12 +13,12 @@ class RecipeDetailScreen extends StatelessWidget {
     final lang = Provider.of<AppState>(context).language;
     final recipe = MockData.recipes.firstWhere((r) => r.recipeId == recipeId, orElse: () => MockData.recipes.first);
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(expandedHeight: 250, pinned: true,
             flexibleSpace: FlexibleSpaceBar(background: Image.network(recipe.imageUrl, fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(color: AppColors.darkSurface)))),
+              errorBuilder: (_, __, ___) => Container(color: AppColors.warmSurface)))),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -42,7 +42,7 @@ class RecipeDetailScreen extends StatelessWidget {
                     child: Row(children: [
                       Container(width: 6, height: 6, decoration: const BoxDecoration(color: AppColors.gold, shape: BoxShape.circle)),
                       const SizedBox(width: 12),
-                      Text(ing, style: const TextStyle(color: AppColors.lightGrey, fontSize: 14)),
+                      Text(ing, style: const TextStyle(color: AppColors.bodyText, fontSize: 14)),
                     ]),
                   )),
                   const SizedBox(height: 24),
@@ -59,7 +59,7 @@ class RecipeDetailScreen extends StatelessWidget {
                           child: Center(child: Text('${entry.key + 1}', style: const TextStyle(color: AppColors.macedonianRed, fontWeight: FontWeight.bold, fontSize: 13))),
                         ),
                         const SizedBox(width: 12),
-                        Expanded(child: Text(entry.value, style: const TextStyle(color: AppColors.lightGrey, fontSize: 14, height: 1.5))),
+                        Expanded(child: Text(entry.value, style: const TextStyle(color: AppColors.bodyText, fontSize: 14, height: 1.5))),
                       ],
                     ),
                   )),

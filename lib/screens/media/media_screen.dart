@@ -11,7 +11,7 @@ class MediaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = Provider.of<AppState>(context).language;
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Медиуми' : 'Media')),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -37,7 +37,7 @@ class MediaScreen extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: AppColors.darkCard,
+          color: AppColors.warmCard,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: color.withOpacity(0.3)),
         ),
@@ -48,9 +48,9 @@ class MediaScreen extends StatelessWidget {
               child: Icon(icon, color: color, size: 30)),
             const SizedBox(width: 16),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(title, style: const TextStyle(color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+              Text(title, style: const TextStyle(color: AppColors.darkText, fontSize: 16, fontWeight: FontWeight.w600)),
               const SizedBox(height: 4),
-              Text(subtitle, style: const TextStyle(color: AppColors.grey, fontSize: 12)),
+              Text(subtitle, style: const TextStyle(color: AppColors.lightGrey, fontSize: 12)),
             ])),
             Icon(Icons.chevron_right, color: color),
           ],

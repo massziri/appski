@@ -12,7 +12,7 @@ class ContactScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = Provider.of<AppState>(context).language;
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Контактирајте Нè' : 'Contact Us')),
       body: ListView(
         padding: const EdgeInsets.all(20),
@@ -42,14 +42,14 @@ class ContactScreen extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(16)),
+        decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(16)),
         child: Row(children: [
           Container(width: 48, height: 48, decoration: BoxDecoration(color: color.withOpacity(0.15), borderRadius: BorderRadius.circular(14)),
             child: Icon(icon, color: color)),
           const SizedBox(width: 14),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(title, style: const TextStyle(color: AppColors.grey, fontSize: 11)),
-            Text(value, style: const TextStyle(color: AppColors.white, fontSize: 14)),
+            Text(title, style: const TextStyle(color: AppColors.lightGrey, fontSize: 11)),
+            Text(value, style: const TextStyle(color: AppColors.darkText, fontSize: 14)),
           ])),
           Icon(Icons.open_in_new, color: color, size: 18),
         ]),

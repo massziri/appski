@@ -2,83 +2,96 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  static const Color macedonianRed = Color(0xFFC41E3A);
-  static const Color gold = Color(0xFFD4A843);
-  static const Color darkNavy = Color(0xFF1A1A2E);
+  // New warm orange theme inspired by the Appski branding
+  static const Color primary = Color(0xFFC41E3A);       // Macedonian Red
+  static const Color gold = Color(0xFFD4A843);           // Gold accent  
+  static const Color warmBg = Color(0xFFF5E6C8);         // Light warm orange background
+  static const Color warmCard = Color(0xFFEDD9B3);       // Card background
+  static const Color warmSurface = Color(0xFFF0DFC4);    // Surface
+  static const Color darkText = Color(0xFF2C1810);       // Dark brown text
+  static const Color bodyText = Color(0xFF5C4033);       // Body text brown
+  static const Color accent = Color(0xFF8B4513);         // Saddle brown accent
   static const Color white = Color(0xFFFFFFFF);
-  static const Color darkSurface = Color(0xFF16213E);
-  static const Color darkCard = Color(0xFF0F3460);
-  static const Color darkCardAlt = Color(0xFF1A1A3E);
-  static const Color grey = Color(0xFF8D8D8D);
-  static const Color lightGrey = Color(0xFFB0B0B0);
+  static const Color darkNavy = Color(0xFF1A1A2E);       // For contrast elements
+  static const Color lightGrey = Color(0xFF9E8E7E);
   static const Color success = Color(0xFF4CAF50);
   static const Color error = Color(0xFFE53935);
-  static const Color info = Color(0xFF2196F3);
+  static const Color info = Color(0xFF1976D2);
+  
+  // Calendar colors
   static const Color calendarFeast = Color(0xFFC41E3A);
-  static const Color calendarFast = Color(0xFF2196F3);
-  static const Color calendarRegular = Color(0xFFFFFFFF);
+  static const Color calendarFast = Color(0xFF1976D2);
+  static const Color calendarRegular = Color(0xFF5C4033);
+  
+  // Event colors
   static const Color eventFestival = Color(0xFFC41E3A);
   static const Color eventGathering = Color(0xFFD4A843);
-  static const Color eventReligious = Color(0xFF2196F3);
+  static const Color eventReligious = Color(0xFF1976D2);
+
+  // Legacy aliases for compatibility
+  static const Color macedonianRed = primary;
+  static const Color grey = lightGrey;
+  static const Color darkCard = warmCard;
+  static const Color darkSurface = warmSurface;
+  static const Color darkCardAlt = warmSurface;
 }
 
 class AppTheme {
-  static ThemeData get darkTheme {
+  static ThemeData get warmTheme {
     return ThemeData(
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: AppColors.darkNavy,
-      primaryColor: AppColors.macedonianRed,
-      colorScheme: const ColorScheme.dark(
-        primary: AppColors.macedonianRed,
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: AppColors.warmBg,
+      primaryColor: AppColors.primary,
+      colorScheme: const ColorScheme.light(
+        primary: AppColors.primary,
         secondary: AppColors.gold,
-        surface: AppColors.darkSurface,
+        surface: AppColors.warmSurface,
         error: AppColors.error,
         onPrimary: AppColors.white,
-        onSecondary: AppColors.darkNavy,
-        onSurface: AppColors.white,
-        onError: AppColors.white,
+        onSecondary: AppColors.darkText,
+        onSurface: AppColors.darkText,
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.darkNavy,
+        backgroundColor: AppColors.warmBg,
         elevation: 0,
         centerTitle: true,
         titleTextStyle: GoogleFonts.poppins(
-          color: AppColors.white,
+          color: AppColors.darkText,
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),
-        iconTheme: const IconThemeData(color: AppColors.white),
+        iconTheme: const IconThemeData(color: AppColors.darkText),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: AppColors.darkSurface,
-        selectedItemColor: AppColors.macedonianRed,
-        unselectedItemColor: AppColors.grey,
+        backgroundColor: AppColors.warmCard,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.lightGrey,
         type: BottomNavigationBarType.fixed,
         elevation: 8,
       ),
       cardTheme: CardTheme(
-        color: AppColors.darkCard,
-        elevation: 4,
+        color: AppColors.warmCard,
+        elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       textTheme: GoogleFonts.poppinsTextTheme(
         const TextTheme(
-          displayLarge: TextStyle(color: AppColors.white, fontSize: 32, fontWeight: FontWeight.bold),
-          displayMedium: TextStyle(color: AppColors.white, fontSize: 28, fontWeight: FontWeight.bold),
-          displaySmall: TextStyle(color: AppColors.white, fontSize: 24, fontWeight: FontWeight.bold),
-          headlineMedium: TextStyle(color: AppColors.white, fontSize: 20, fontWeight: FontWeight.w600),
-          headlineSmall: TextStyle(color: AppColors.white, fontSize: 18, fontWeight: FontWeight.w600),
-          titleLarge: TextStyle(color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w600),
-          titleMedium: TextStyle(color: AppColors.white, fontSize: 14, fontWeight: FontWeight.w500),
-          bodyLarge: TextStyle(color: AppColors.white, fontSize: 16),
-          bodyMedium: TextStyle(color: AppColors.lightGrey, fontSize: 14),
-          bodySmall: TextStyle(color: AppColors.grey, fontSize: 12),
+          displayLarge: TextStyle(color: AppColors.darkText, fontSize: 32, fontWeight: FontWeight.bold),
+          displayMedium: TextStyle(color: AppColors.darkText, fontSize: 28, fontWeight: FontWeight.bold),
+          displaySmall: TextStyle(color: AppColors.darkText, fontSize: 24, fontWeight: FontWeight.bold),
+          headlineMedium: TextStyle(color: AppColors.darkText, fontSize: 20, fontWeight: FontWeight.w600),
+          headlineSmall: TextStyle(color: AppColors.darkText, fontSize: 18, fontWeight: FontWeight.w600),
+          titleLarge: TextStyle(color: AppColors.darkText, fontSize: 16, fontWeight: FontWeight.w600),
+          titleMedium: TextStyle(color: AppColors.darkText, fontSize: 14, fontWeight: FontWeight.w500),
+          bodyLarge: TextStyle(color: AppColors.darkText, fontSize: 16),
+          bodyMedium: TextStyle(color: AppColors.bodyText, fontSize: 14),
+          bodySmall: TextStyle(color: AppColors.lightGrey, fontSize: 12),
           labelLarge: TextStyle(color: AppColors.white, fontSize: 14, fontWeight: FontWeight.w600),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.macedonianRed,
+          backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
@@ -87,42 +100,39 @@ class AppTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.gold,
-          side: const BorderSide(color: AppColors.gold),
+          foregroundColor: AppColors.primary,
+          side: const BorderSide(color: AppColors.primary),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.darkSurface,
+        fillColor: AppColors.white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: AppColors.warmCard),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.darkCard),
+          borderSide: BorderSide(color: AppColors.warmCard),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppColors.gold, width: 2),
         ),
-        hintStyle: const TextStyle(color: AppColors.grey),
-        labelStyle: const TextStyle(color: AppColors.lightGrey),
+        hintStyle: TextStyle(color: AppColors.lightGrey),
+        labelStyle: TextStyle(color: AppColors.bodyText),
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: AppColors.darkCard,
-        selectedColor: AppColors.macedonianRed,
-        labelStyle: GoogleFonts.poppins(color: AppColors.white, fontSize: 12),
+        backgroundColor: AppColors.warmCard,
+        selectedColor: AppColors.primary,
+        labelStyle: GoogleFonts.poppins(color: AppColors.darkText, fontSize: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
-      dividerTheme: const DividerThemeData(
-        color: AppColors.darkCard,
-        thickness: 1,
-      ),
+      dividerTheme: const DividerThemeData(color: AppColors.warmCard, thickness: 1),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: AppColors.macedonianRed,
+        backgroundColor: AppColors.primary,
         foregroundColor: AppColors.white,
       ),
     );

@@ -17,7 +17,7 @@ class EventsScreen extends StatelessWidget {
       ..sort((a, b) => a.startDate.compareTo(b.startDate));
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(
         title: Text(lang == 'mk' ? 'Настани' : 'Events'),
         actions: [
@@ -27,9 +27,9 @@ class EventsScreen extends StatelessWidget {
       ),
       body: upcomingEvents.isEmpty
         ? Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Icon(Icons.event_busy, size: 64, color: AppColors.grey),
+            const Icon(Icons.event_busy, size: 64, color: AppColors.lightGrey),
             const SizedBox(height: 16),
-            Text(lang == 'mk' ? 'Нема претстојни настани' : 'No upcoming events', style: const TextStyle(color: AppColors.grey, fontSize: 16)),
+            Text(lang == 'mk' ? 'Нема претстојни настани' : 'No upcoming events', style: const TextStyle(color: AppColors.lightGrey, fontSize: 16)),
           ]))
         : ListView.builder(
             padding: const EdgeInsets.symmetric(vertical: 8),

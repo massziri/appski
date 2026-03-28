@@ -13,7 +13,7 @@ class RadioListScreen extends StatelessWidget {
     final lang = Provider.of<AppState>(context).language;
     final appState = Provider.of<AppState>(context);
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Радио Станици' : 'Radio Stations')),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
@@ -23,16 +23,16 @@ class RadioListScreen extends StatelessWidget {
           final isFav = appState.favoriteStations.contains(station.stationId);
           return Container(
             margin: const EdgeInsets.only(bottom: 12),
-            decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(16)),
+            decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(16)),
             child: ListTile(
               contentPadding: const EdgeInsets.all(12),
               leading: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(station.logoUrl, width: 56, height: 56, fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Container(width: 56, height: 56, color: AppColors.darkSurface,
-                    child: const Icon(Icons.radio, color: AppColors.grey))),
+                  errorBuilder: (_, __, ___) => Container(width: 56, height: 56, color: AppColors.warmSurface,
+                    child: const Icon(Icons.radio, color: AppColors.lightGrey))),
               ),
-              title: Text(station.name, style: const TextStyle(color: AppColors.white, fontWeight: FontWeight.w600)),
+              title: Text(station.name, style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w600)),
               subtitle: Row(children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -40,7 +40,7 @@ class RadioListScreen extends StatelessWidget {
                   child: Text(station.genre, style: const TextStyle(color: AppColors.macedonianRed, fontSize: 10)),
                 ),
                 const SizedBox(width: 8),
-                Text(station.region, style: const TextStyle(color: AppColors.grey, fontSize: 11)),
+                Text(station.region, style: const TextStyle(color: AppColors.lightGrey, fontSize: 11)),
                 const Spacer(),
                 Container(width: 8, height: 8, decoration: BoxDecoration(
                   shape: BoxShape.circle, color: station.isLive ? AppColors.success : AppColors.grey)),

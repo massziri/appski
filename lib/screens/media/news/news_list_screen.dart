@@ -24,7 +24,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
       : MockData.news.where((n) => n.category == _selectedCategory).toList();
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(
         title: Text(lang == 'mk' ? 'Вести' : 'News'),
         actions: [

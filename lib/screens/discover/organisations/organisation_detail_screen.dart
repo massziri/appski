@@ -14,12 +14,12 @@ class OrganisationDetailScreen extends StatelessWidget {
     final lang = Provider.of<AppState>(context).language;
     final org = MockData.organisations.firstWhere((o) => o.organisationId == organisationId, orElse: () => MockData.organisations.first);
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(expandedHeight: 250, pinned: true,
             flexibleSpace: FlexibleSpaceBar(background: Image.network(org.imageUrl, fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(color: AppColors.darkSurface)))),
+              errorBuilder: (_, __, ___) => Container(color: AppColors.warmSurface)))),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -36,7 +36,7 @@ class OrganisationDetailScreen extends StatelessWidget {
                     Text('${lang == 'mk' ? 'Основано' : 'Founded'}: ${org.founded}', style: const TextStyle(color: AppColors.gold, fontSize: 13)),
                   ],
                   const SizedBox(height: 16),
-                  Text(org.getDescription(lang), style: const TextStyle(color: AppColors.lightGrey, fontSize: 14, height: 1.6)),
+                  Text(org.getDescription(lang), style: const TextStyle(color: AppColors.bodyText, fontSize: 14, height: 1.6)),
                   const SizedBox(height: 20),
                   if (org.president.isNotEmpty) _detailRow(Icons.person, '${lang == 'mk' ? 'Претседател' : 'President'}: ${org.president}'),
                   if (org.secretary.isNotEmpty) _detailRow(Icons.person_outline, '${lang == 'mk' ? 'Секретар' : 'Secretary'}: ${org.secretary}'),
@@ -49,8 +49,8 @@ class OrganisationDetailScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     Container(
                       width: double.infinity, padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(12)),
-                      child: Text(org.membershipInfo, style: const TextStyle(color: AppColors.lightGrey, fontSize: 13)),
+                      decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(12)),
+                      child: Text(org.membershipInfo, style: const TextStyle(color: AppColors.bodyText, fontSize: 13)),
                     ),
                   ],
                   const SizedBox(height: 24),
@@ -71,7 +71,7 @@ class OrganisationDetailScreen extends StatelessWidget {
     return Padding(padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(children: [
         Icon(icon, size: 18, color: AppColors.gold), const SizedBox(width: 12),
-        Expanded(child: Text(text, style: const TextStyle(color: AppColors.lightGrey, fontSize: 13))),
+        Expanded(child: Text(text, style: const TextStyle(color: AppColors.bodyText, fontSize: 13))),
       ]));
   }
 }

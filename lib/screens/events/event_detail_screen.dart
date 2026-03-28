@@ -19,7 +19,7 @@ class EventDetailScreen extends StatelessWidget {
     final isFav = appState.favoriteEvents.contains(eventId);
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(expandedHeight: 300, pinned: true,
@@ -31,15 +31,15 @@ class EventDetailScreen extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(background: Stack(
               fit: StackFit.expand,
               children: [
-                Image.network(event.imageUrl, fit: BoxFit.cover, errorBuilder: (_, __, ___) => Container(color: AppColors.darkSurface)),
+                Image.network(event.imageUrl, fit: BoxFit.cover, errorBuilder: (_, __, ___) => Container(color: AppColors.warmSurface)),
                 Container(decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
                   colors: [Colors.transparent, Colors.black.withOpacity(0.7)]))),
                 if (daysUntil > 0) Positioned(top: 100, left: 0, right: 0, child: Center(
                   child: Container(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                     decoration: BoxDecoration(color: AppColors.macedonianRed.withOpacity(0.9), borderRadius: BorderRadius.circular(16)),
                     child: Column(children: [
-                      Text('$daysUntil', style: const TextStyle(color: AppColors.white, fontSize: 36, fontWeight: FontWeight.bold)),
-                      Text(lang == 'mk' ? 'дена до настанот' : 'days to go', style: const TextStyle(color: AppColors.white, fontSize: 12)),
+                      Text('$daysUntil', style: const TextStyle(color: AppColors.darkText, fontSize: 36, fontWeight: FontWeight.bold)),
+                      Text(lang == 'mk' ? 'дена до настанот' : 'days to go', style: const TextStyle(color: AppColors.darkText, fontSize: 12)),
                     ]),
                   ),
                 )),
@@ -63,13 +63,13 @@ class EventDetailScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(lang == 'mk' ? 'За настанот' : 'About', style: Theme.of(context).textTheme.headlineSmall),
                   const SizedBox(height: 12),
-                  Text(event.getDescription(lang), style: const TextStyle(color: AppColors.lightGrey, fontSize: 14, height: 1.6)),
+                  Text(event.getDescription(lang), style: const TextStyle(color: AppColors.bodyText, fontSize: 14, height: 1.6)),
                   const SizedBox(height: 24),
                   // Map placeholder
-                  Container(height: 180, decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(16)),
+                  Container(height: 180, decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(16)),
                     child: const Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Icon(Icons.map, size: 48, color: AppColors.grey), SizedBox(height: 8),
-                      Text('Venue Map', style: TextStyle(color: AppColors.grey)),
+                      Icon(Icons.map, size: 48, color: AppColors.lightGrey), SizedBox(height: 8),
+                      Text('Venue Map', style: TextStyle(color: AppColors.lightGrey)),
                     ]))),
                   const SizedBox(height: 24),
                   // RSVP Buttons
@@ -89,8 +89,8 @@ class EventDetailScreen extends StatelessWidget {
                     SizedBox(width: double.infinity, child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(backgroundColor: AppColors.gold),
                       onPressed: () async { try { await launchUrl(Uri.parse(event.ticketUrl)); } catch (_) {} },
-                      icon: const Icon(Icons.confirmation_number, color: AppColors.darkNavy),
-                      label: Text(lang == 'mk' ? 'Купи Билет' : 'Get Tickets', style: const TextStyle(color: AppColors.darkNavy)),
+                      icon: const Icon(Icons.confirmation_number, color: AppColors.warmBg),
+                      label: Text(lang == 'mk' ? 'Купи Билет' : 'Get Tickets', style: const TextStyle(color: AppColors.warmBg)),
                     )),
                   const SizedBox(height: 16),
                   // Share buttons
@@ -116,9 +116,9 @@ class EventDetailScreen extends StatelessWidget {
         Icon(icon, size: 20, color: AppColors.gold),
         const SizedBox(width: 12),
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(label, style: const TextStyle(color: AppColors.grey, fontSize: 11)),
+          Text(label, style: const TextStyle(color: AppColors.lightGrey, fontSize: 11)),
           const SizedBox(height: 2),
-          Text(value, style: const TextStyle(color: AppColors.white, fontSize: 14)),
+          Text(value, style: const TextStyle(color: AppColors.darkText, fontSize: 14)),
         ])),
       ]));
   }

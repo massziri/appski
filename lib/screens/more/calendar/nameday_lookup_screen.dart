@@ -34,7 +34,7 @@ class _NameDayLookupScreenState extends State<NameDayLookupScreen> {
   Widget build(BuildContext context) {
     final lang = Provider.of<AppState>(context).language;
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Пребарај Именден' : 'Name Day Lookup')),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -56,7 +56,7 @@ class _NameDayLookupScreenState extends State<NameDayLookupScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: AppColors.darkCard,
+                  color: AppColors.warmCard,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: AppColors.gold.withOpacity(0.3)),
                 ),
@@ -64,7 +64,7 @@ class _NameDayLookupScreenState extends State<NameDayLookupScreen> {
                   children: [
                     const Text('🎉', style: TextStyle(fontSize: 32)),
                     const SizedBox(height: 12),
-                    Text(_result, style: const TextStyle(color: AppColors.white, fontSize: 14), textAlign: TextAlign.center),
+                    Text(_result, style: const TextStyle(color: AppColors.darkText, fontSize: 14), textAlign: TextAlign.center),
                   ],
                 ),
               ),
@@ -72,15 +72,15 @@ class _NameDayLookupScreenState extends State<NameDayLookupScreen> {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(16)),
+                decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(16)),
                 child: Text(
                   lang == 'mk' ? 'Нема резултати. Пробајте друго име.' : 'No results. Try another name.',
-                  style: const TextStyle(color: AppColors.grey), textAlign: TextAlign.center,
+                  style: const TextStyle(color: AppColors.lightGrey), textAlign: TextAlign.center,
                 ),
               ),
             const SizedBox(height: 30),
             Text(lang == 'mk' ? 'Примери: Stefan, Maria, Nikola, Ilija' : 'Examples: Stefan, Maria, Nikola, Ilija',
-              style: const TextStyle(color: AppColors.grey, fontSize: 12)),
+              style: const TextStyle(color: AppColors.lightGrey, fontSize: 12)),
           ],
         ),
       ),

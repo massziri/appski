@@ -16,7 +16,7 @@ class NewsCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         decoration: BoxDecoration(
-          color: AppColors.darkCard,
+          color: AppColors.warmCard,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
@@ -29,8 +29,8 @@ class NewsCard extends StatelessWidget {
                 height: 100,
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) => Container(
-                  width: 110, height: 100, color: AppColors.darkSurface,
-                  child: const Icon(Icons.image, color: AppColors.grey),
+                  width: 110, height: 100, color: AppColors.warmSurface,
+                  child: const Icon(Icons.image, color: AppColors.lightGrey),
                 ),
               ),
             ),
@@ -51,14 +51,14 @@ class NewsCard extends StatelessWidget {
                     const SizedBox(height: 6),
                     Text(
                       article.getTitle(lang),
-                      style: const TextStyle(color: AppColors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                      style: const TextStyle(color: AppColors.darkText, fontSize: 13, fontWeight: FontWeight.w600),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
                     Text(
                       '${article.readingTime} min read',
-                      style: const TextStyle(color: AppColors.grey, fontSize: 11),
+                      style: const TextStyle(color: AppColors.lightGrey, fontSize: 11),
                     ),
                   ],
                 ),

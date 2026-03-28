@@ -10,14 +10,14 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = Provider.of<AppState>(context).language;
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Известувања' : 'Notifications')),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Icon(Icons.notifications_none, size: 64, color: AppColors.grey),
+          const Icon(Icons.notifications_none, size: 64, color: AppColors.lightGrey),
           const SizedBox(height: 16),
           Text(lang == 'mk' ? 'Нема нови известувања' : 'No new notifications',
-            style: const TextStyle(color: AppColors.grey, fontSize: 16)),
+            style: const TextStyle(color: AppColors.lightGrey, fontSize: 16)),
         ]),
       ),
     );

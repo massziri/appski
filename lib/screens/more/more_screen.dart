@@ -11,7 +11,7 @@ class MoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = Provider.of<AppState>(context).language;
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Повеќе' : 'More')),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -22,21 +22,24 @@ class MoreScreen extends StatelessWidget {
             lang == 'mk' ? 'Прогноза за Македонија' : 'Macedonia forecast', '/more/weather', AppColors.info),
           _menuItem(context, Icons.add_circle_outline, lang == 'mk' ? 'Поднеси Листинг' : 'Submit a Listing',
             lang == 'mk' ? 'Додадете бизнис или организација' : 'Add a business or organisation', '/more/submit', AppColors.success),
-          const Divider(color: AppColors.darkCard, height: 32),
+          const Divider(color: AppColors.warmCard, height: 32),
           _menuItem(context, Icons.settings, lang == 'mk' ? 'Поставки' : 'Settings',
             lang == 'mk' ? 'Јазик, известувања' : 'Language, notifications', '/more/settings', AppColors.lightGrey),
           _menuItem(context, Icons.info_outline, lang == 'mk' ? 'За Заедницата' : 'About Community',
             lang == 'mk' ? 'Македонска Заедница на Австралија' : 'Macedonian Community of Australia', '/more/about', AppColors.macedonianRed),
           _menuItem(context, Icons.mail_outline, lang == 'mk' ? 'Контактирајте Нè' : 'Contact Us',
             lang == 'mk' ? 'Е-пошта, телефон, социјални мрежи' : 'Email, phone, social media', '/more/contact', AppColors.gold),
-          const Divider(color: AppColors.darkCard, height: 32),
+          const Divider(color: AppColors.warmCard, height: 32),
+          _menuItem(context, Icons.admin_panel_settings, lang == 'mk' ? 'Админ Панел' : 'Admin Panel',
+            lang == 'mk' ? 'Управување со содржина' : 'Content management', '/more/admin', AppColors.primary),
+          const Divider(color: AppColors.warmCard, height: 32),
           _menuItem(context, Icons.privacy_tip_outlined, lang == 'mk' ? 'Политика за Приватност' : 'Privacy Policy',
             '', '/webview', AppColors.grey, extra: {'title': 'Privacy Policy', 'url': 'https://macedoniancommunity.org.au/privacy'}),
           _menuItem(context, Icons.description_outlined, lang == 'mk' ? 'Услови за Користење' : 'Terms of Use',
             '', '/webview', AppColors.grey, extra: {'title': 'Terms of Use', 'url': 'https://macedoniancommunity.org.au/terms'}),
           const SizedBox(height: 30),
-          Center(child: Text('Appski v1.0.0', style: const TextStyle(color: AppColors.grey, fontSize: 11))),
-          Center(child: Text('© 2026 Macedonian Community of Australia Inc.', style: const TextStyle(color: AppColors.grey, fontSize: 10))),
+          Center(child: Text('Appski v1.0.0', style: const TextStyle(color: AppColors.lightGrey, fontSize: 11))),
+          Center(child: Text('© 2026 Macedonian Community of Australia Inc.', style: const TextStyle(color: AppColors.lightGrey, fontSize: 10))),
         ],
       ),
     );
@@ -54,16 +57,16 @@ class MoreScreen extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 8),
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(16)),
+        decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(16)),
         child: Row(children: [
           Container(width: 44, height: 44, decoration: BoxDecoration(color: color.withOpacity(0.15), borderRadius: BorderRadius.circular(12)),
             child: Icon(icon, color: color, size: 22)),
           const SizedBox(width: 14),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(title, style: const TextStyle(color: AppColors.white, fontSize: 14, fontWeight: FontWeight.w600)),
-            if (subtitle.isNotEmpty) Text(subtitle, style: const TextStyle(color: AppColors.grey, fontSize: 11)),
+            Text(title, style: const TextStyle(color: AppColors.darkText, fontSize: 14, fontWeight: FontWeight.w600)),
+            if (subtitle.isNotEmpty) Text(subtitle, style: const TextStyle(color: AppColors.lightGrey, fontSize: 11)),
           ])),
-          const Icon(Icons.chevron_right, color: AppColors.grey, size: 20),
+          const Icon(Icons.chevron_right, color: AppColors.lightGrey, size: 20),
         ]),
       ),
     );

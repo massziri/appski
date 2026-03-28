@@ -20,7 +20,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     final weather = MockData.getWeather(_selectedCity.toLowerCase());
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Временска Прогноза' : 'Weather')),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -52,15 +52,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
               gradient: LinearGradient(colors: [AppColors.darkCard, AppColors.info.withOpacity(0.1)]),
               borderRadius: BorderRadius.circular(20)),
             child: Column(children: [
-              Text(_selectedCity, style: const TextStyle(color: AppColors.lightGrey, fontSize: 14)),
+              Text(_selectedCity, style: const TextStyle(color: AppColors.bodyText, fontSize: 14)),
               const SizedBox(height: 8),
               Text(weather.icon, style: const TextStyle(fontSize: 64)),
               const SizedBox(height: 8),
-              Text('${weather.currentTemp.round()}°C', style: const TextStyle(color: AppColors.white, fontSize: 48, fontWeight: FontWeight.bold)),
-              Text(weather.condition, style: const TextStyle(color: AppColors.lightGrey, fontSize: 16)),
+              Text('${weather.currentTemp.round()}°C', style: const TextStyle(color: AppColors.darkText, fontSize: 48, fontWeight: FontWeight.bold)),
+              Text(weather.condition, style: const TextStyle(color: AppColors.bodyText, fontSize: 16)),
               const SizedBox(height: 8),
               Text(lang == 'mk' ? '⚠️ Ова се примери за тестирање' : '⚠️ This is sample data for testing',
-                style: const TextStyle(color: AppColors.grey, fontSize: 10)),
+                style: const TextStyle(color: AppColors.lightGrey, fontSize: 10)),
             ]),
           ),
           const SizedBox(height: 20),
@@ -70,15 +70,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
           ...weather.dailyForecast.map((day) => Container(
             margin: const EdgeInsets.only(bottom: 8),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(12)),
             child: Row(children: [
-              SizedBox(width: 40, child: Text(day.day, style: const TextStyle(color: AppColors.white, fontWeight: FontWeight.w600))),
+              SizedBox(width: 40, child: Text(day.day, style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w600))),
               Text(day.icon, style: const TextStyle(fontSize: 24)),
               const SizedBox(width: 12),
-              Expanded(child: Text(day.condition, style: const TextStyle(color: AppColors.lightGrey, fontSize: 13))),
-              Text('${day.high.round()}°', style: const TextStyle(color: AppColors.white, fontWeight: FontWeight.w600)),
+              Expanded(child: Text(day.condition, style: const TextStyle(color: AppColors.bodyText, fontSize: 13))),
+              Text('${day.high.round()}°', style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w600)),
               const SizedBox(width: 8),
-              Text('${day.low.round()}°', style: const TextStyle(color: AppColors.grey)),
+              Text('${day.low.round()}°', style: const TextStyle(color: AppColors.lightGrey)),
             ]),
           )),
         ],

@@ -21,7 +21,7 @@ class _OrthodoxCalendarScreenState extends State<OrthodoxCalendarScreen> {
     final todayEntry = MockData.getTodayCalendar();
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(
         title: Text(lang == 'mk' ? 'Православен Календар' : 'Orthodox Calendar'),
         actions: [
@@ -48,12 +48,12 @@ class _OrthodoxCalendarScreenState extends State<OrthodoxCalendarScreen> {
                   const SizedBox(width: 12),
                   Text(lang == 'mk' ? 'Денес' : 'Today', style: const TextStyle(color: AppColors.gold, fontSize: 16, fontWeight: FontWeight.bold)),
                   const Spacer(),
-                  Text(DateFormat('MMM d, yyyy').format(DateTime.now()), style: const TextStyle(color: AppColors.grey, fontSize: 12)),
+                  Text(DateFormat('MMM d, yyyy').format(DateTime.now()), style: const TextStyle(color: AppColors.lightGrey, fontSize: 12)),
                 ]),
                 const SizedBox(height: 12),
                 ...todayEntry.getSaints(lang).map((s) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text('• $s', style: const TextStyle(color: AppColors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                  child: Text('• $s', style: const TextStyle(color: AppColors.darkText, fontSize: 14, fontWeight: FontWeight.w500)),
                 )),
                 const SizedBox(height: 12),
                 Row(children: [
@@ -69,7 +69,7 @@ class _OrthodoxCalendarScreenState extends State<OrthodoxCalendarScreen> {
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             IconButton(icon: const Icon(Icons.chevron_left, color: AppColors.white),
               onPressed: () => setState(() => _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month - 1))),
-            Text(DateFormat('MMMM yyyy').format(_selectedMonth), style: const TextStyle(color: AppColors.white, fontSize: 18, fontWeight: FontWeight.w600)),
+            Text(DateFormat('MMMM yyyy').format(_selectedMonth), style: const TextStyle(color: AppColors.darkText, fontSize: 18, fontWeight: FontWeight.w600)),
             IconButton(icon: const Icon(Icons.chevron_right, color: AppColors.white),
               onPressed: () => setState(() => _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month + 1))),
           ]),
@@ -91,16 +91,16 @@ class _OrthodoxCalendarScreenState extends State<OrthodoxCalendarScreen> {
               child: Container(
                 margin: const EdgeInsets.only(bottom: 8),
                 padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(12),
+                decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(12),
                   border: Border(left: BorderSide(color: _feastColor(day.feastType), width: 3))),
                 child: Row(children: [
                   SizedBox(width: 60, child: Column(children: [
-                    Text(DateFormat('MMM').format(DateTime.parse(day.dateKey)), style: const TextStyle(color: AppColors.grey, fontSize: 10)),
-                    Text(DateFormat('d').format(DateTime.parse(day.dateKey)), style: const TextStyle(color: AppColors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                    Text(DateFormat('MMM').format(DateTime.parse(day.dateKey)), style: const TextStyle(color: AppColors.lightGrey, fontSize: 10)),
+                    Text(DateFormat('d').format(DateTime.parse(day.dateKey)), style: const TextStyle(color: AppColors.darkText, fontSize: 22, fontWeight: FontWeight.bold)),
                   ])),
                   const SizedBox(width: 12),
                   Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(day.getSaints(lang).first, style: const TextStyle(color: AppColors.white, fontSize: 13, fontWeight: FontWeight.w500), maxLines: 2),
+                    Text(day.getSaints(lang).first, style: const TextStyle(color: AppColors.darkText, fontSize: 13, fontWeight: FontWeight.w500), maxLines: 2),
                     const SizedBox(height: 4),
                     Row(children: [
                       _calBadge(_feastLabel(day.feastType, lang), _feastColor(day.feastType)),
@@ -108,7 +108,7 @@ class _OrthodoxCalendarScreenState extends State<OrthodoxCalendarScreen> {
                       _calBadge(_fastLabel(day.fastingRule, lang), AppColors.info),
                     ]),
                   ])),
-                  const Icon(Icons.chevron_right, color: AppColors.grey, size: 18),
+                  const Icon(Icons.chevron_right, color: AppColors.lightGrey, size: 18),
                 ]),
               ),
             );
@@ -130,7 +130,7 @@ class _OrthodoxCalendarScreenState extends State<OrthodoxCalendarScreen> {
     return Row(children: [
       Container(width: 10, height: 10, decoration: BoxDecoration(shape: BoxShape.circle, color: color)),
       const SizedBox(width: 6),
-      Text(label, style: const TextStyle(color: AppColors.grey, fontSize: 10)),
+      Text(label, style: const TextStyle(color: AppColors.lightGrey, fontSize: 10)),
     ]);
   }
 

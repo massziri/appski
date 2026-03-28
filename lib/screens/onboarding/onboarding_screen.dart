@@ -45,7 +45,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final lang = appState.language;
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       body: SafeArea(
         child: Column(
           children: [
@@ -140,7 +140,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
                 child: Text(
                   lang == 'mk' ? 'Прескокни' : 'Skip',
-                  style: TextStyle(color: AppColors.grey),
+                  style: TextStyle(color: AppColors.lightGrey),
                 ),
               ),
             const SizedBox(height: 20),

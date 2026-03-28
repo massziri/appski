@@ -11,7 +11,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = Provider.of<AppState>(context).language;
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'За Заедницата' : 'About Community')),
       body: ListView(
         padding: const EdgeInsets.all(20),
@@ -32,7 +32,7 @@ class AboutScreen extends StatelessWidget {
             lang == 'mk'
               ? 'Македонската Заедница на Австралија е посветена на зачувување и промовирање на македонската култура, јазик и традиции за сегашните и идните генерации во Австралија.\n\nОснована за да служи како мост помеѓу македонската дијаспора и нивното наследство, организацијата нуди широк спектар на културни, образовни и социјални програми.'
               : 'The Macedonian Community of Australia Inc. is dedicated to preserving and promoting Macedonian culture, language, and traditions for current and future generations in Australia.\n\nEstablished to serve as a bridge between the Macedonian diaspora and their heritage, the organization offers a wide range of cultural, educational, and social programs.',
-            style: const TextStyle(color: AppColors.lightGrey, fontSize: 14, height: 1.6),
+            style: const TextStyle(color: AppColors.bodyText, fontSize: 14, height: 1.6),
           ),
           const SizedBox(height: 24),
           _infoTile(Icons.email, AppConstants.supportEmail),
@@ -55,7 +55,7 @@ class AboutScreen extends StatelessWidget {
     return Padding(padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(children: [
         Icon(icon, size: 18, color: AppColors.gold), const SizedBox(width: 12),
-        Expanded(child: Text(text, style: const TextStyle(color: AppColors.lightGrey, fontSize: 13))),
+        Expanded(child: Text(text, style: const TextStyle(color: AppColors.bodyText, fontSize: 13))),
       ]));
   }
 

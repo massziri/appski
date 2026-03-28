@@ -21,7 +21,7 @@ class AppskiApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Appski',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
+      theme: AppTheme.warmTheme,
       routerConfig: appRouter,
     );
   }

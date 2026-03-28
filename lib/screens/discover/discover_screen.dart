@@ -11,7 +11,7 @@ class DiscoverScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = Provider.of<AppState>(context).language;
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(
         title: Text(lang == 'mk' ? 'Откриј' : 'Discover'),
         actions: [
@@ -40,7 +40,7 @@ class DiscoverScreen extends StatelessWidget {
       onTap: () => context.push(route),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.darkCard,
+          color: AppColors.warmCard,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: color.withOpacity(0.3)),
         ),
@@ -54,9 +54,9 @@ class DiscoverScreen extends StatelessWidget {
               child: Icon(icon, color: color, size: 30),
             ),
             const SizedBox(height: 12),
-            Text(title, style: const TextStyle(color: AppColors.white, fontSize: 15, fontWeight: FontWeight.w600), textAlign: TextAlign.center),
+            Text(title, style: const TextStyle(color: AppColors.darkText, fontSize: 15, fontWeight: FontWeight.w600), textAlign: TextAlign.center),
             const SizedBox(height: 4),
-            Text(subtitle, style: const TextStyle(color: AppColors.grey, fontSize: 11), textAlign: TextAlign.center, maxLines: 2),
+            Text(subtitle, style: const TextStyle(color: AppColors.lightGrey, fontSize: 11), textAlign: TextAlign.center, maxLines: 2),
           ],
         ),
       ),

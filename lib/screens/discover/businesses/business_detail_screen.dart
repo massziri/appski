@@ -17,7 +17,7 @@ class BusinessDetailScreen extends StatelessWidget {
     final isFavorite = appState.favoriteBusinesses.contains(businessId);
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -25,7 +25,7 @@ class BusinessDetailScreen extends StatelessWidget {
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(biz.imageUrl, fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(color: AppColors.darkSurface)),
+                errorBuilder: (_, __, ___) => Container(color: AppColors.warmSurface)),
             ),
             actions: [
               IconButton(
@@ -56,7 +56,7 @@ class BusinessDetailScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Text(biz.getDescription(lang), style: const TextStyle(color: AppColors.lightGrey, fontSize: 14, height: 1.6)),
+                  Text(biz.getDescription(lang), style: const TextStyle(color: AppColors.bodyText, fontSize: 14, height: 1.6)),
                   const SizedBox(height: 24),
                   _infoRow(Icons.location_on, '${biz.address}, ${biz.suburb} ${biz.state}'),
                   _infoRow(Icons.phone, biz.phone),
@@ -67,17 +67,17 @@ class BusinessDetailScreen extends StatelessWidget {
                   Container(
                     height: 200,
                     decoration: BoxDecoration(
-                      color: AppColors.darkCard,
+                      color: AppColors.warmCard,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: const Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.map, size: 48, color: AppColors.grey),
+                          Icon(Icons.map, size: 48, color: AppColors.lightGrey),
                           SizedBox(height: 8),
-                          Text('Map View', style: TextStyle(color: AppColors.grey)),
-                          Text('Google Maps integration placeholder', style: TextStyle(color: AppColors.grey, fontSize: 11)),
+                          Text('Map View', style: TextStyle(color: AppColors.lightGrey)),
+                          Text('Google Maps integration placeholder', style: TextStyle(color: AppColors.lightGrey, fontSize: 11)),
                         ],
                       ),
                     ),
@@ -108,10 +108,10 @@ class BusinessDetailScreen extends StatelessWidget {
                   const SizedBox(height: 12),
                   Container(
                     padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(16)),
+                    decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(16)),
                     child: Center(
                       child: Text(lang == 'mk' ? 'Рецензиите ќе бидат достапни наскоро' : 'Reviews coming soon',
-                        style: const TextStyle(color: AppColors.grey)),
+                        style: const TextStyle(color: AppColors.lightGrey)),
                     ),
                   ),
                 ],
@@ -130,7 +130,7 @@ class BusinessDetailScreen extends StatelessWidget {
         children: [
           Icon(icon, size: 18, color: AppColors.gold),
           const SizedBox(width: 12),
-          Expanded(child: Text(text, style: const TextStyle(color: AppColors.lightGrey, fontSize: 13))),
+          Expanded(child: Text(text, style: const TextStyle(color: AppColors.bodyText, fontSize: 13))),
         ],
       ),
     );

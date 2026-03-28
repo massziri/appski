@@ -32,6 +32,7 @@ import '../screens/more/settings/settings_screen.dart';
 import '../screens/more/about/about_screen.dart';
 import '../screens/more/submit/submit_screen.dart';
 import '../screens/more/contact/contact_screen.dart';
+import '../screens/more/admin/admin_panel_screen.dart';
 import '../screens/common/search_screen.dart';
 import '../screens/common/notifications_screen.dart';
 import '../screens/common/webview_screen.dart';
@@ -215,6 +216,10 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: 'contact',
               builder: (context, state) => const ContactScreen(),
+            ),
+            GoRoute(
+              path: 'admin',
+              builder: (context, state) => const AdminPanelScreen(),
             ),
           ],
         ),

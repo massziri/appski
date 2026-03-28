@@ -20,7 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final lang = appState.language;
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Поставки' : 'Settings')),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -30,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(12)),
             child: Row(children: [
               Expanded(child: GestureDetector(
                 onTap: () => appState.setLanguage('en'),
@@ -39,7 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   decoration: BoxDecoration(
                     color: lang == 'en' ? AppColors.macedonianRed : Colors.transparent,
                     borderRadius: BorderRadius.circular(10)),
-                  child: Center(child: Text('English', style: TextStyle(color: AppColors.white, fontWeight: lang == 'en' ? FontWeight.bold : FontWeight.normal))),
+                  child: Center(child: Text('English', style: TextStyle(color: AppColors.darkText, fontWeight: lang == 'en' ? FontWeight.bold : FontWeight.normal))),
                 ),
               )),
               Expanded(child: GestureDetector(
@@ -49,7 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   decoration: BoxDecoration(
                     color: lang == 'mk' ? AppColors.macedonianRed : Colors.transparent,
                     borderRadius: BorderRadius.circular(10)),
-                  child: Center(child: Text('Македонски', style: TextStyle(color: AppColors.white, fontWeight: lang == 'mk' ? FontWeight.bold : FontWeight.normal))),
+                  child: Center(child: Text('Македонски', style: TextStyle(color: AppColors.darkText, fontWeight: lang == 'mk' ? FontWeight.bold : FontWeight.normal))),
                 ),
               )),
             ]),
@@ -79,9 +79,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(12)),
       child: SwitchListTile(
-        title: Text(title, style: const TextStyle(color: AppColors.white, fontSize: 14)),
+        title: Text(title, style: const TextStyle(color: AppColors.darkText, fontSize: 14)),
         value: value,
         onChanged: onChanged,
         activeColor: AppColors.macedonianRed,

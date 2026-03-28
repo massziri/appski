@@ -13,14 +13,14 @@ class TourismDetailScreen extends StatelessWidget {
     final lang = Provider.of<AppState>(context).language;
     final place = MockData.tourismPlaces.firstWhere((p) => p.placeId == placeId, orElse: () => MockData.tourismPlaces.first);
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(expandedHeight: 300, pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(place.getName(lang), style: const TextStyle(fontSize: 16)),
               background: Image.network(place.imageUrl, fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(color: AppColors.darkSurface)))),
+                errorBuilder: (_, __, ___) => Container(color: AppColors.warmSurface)))),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -37,15 +37,15 @@ class TourismDetailScreen extends StatelessWidget {
                     Text(place.region, style: const TextStyle(color: AppColors.macedonianRed, fontSize: 13)),
                   ]),
                   const SizedBox(height: 20),
-                  Text(place.getDescription(lang), style: const TextStyle(color: AppColors.lightGrey, fontSize: 14, height: 1.6)),
+                  Text(place.getDescription(lang), style: const TextStyle(color: AppColors.bodyText, fontSize: 14, height: 1.6)),
                   const SizedBox(height: 24),
                   Container(
                     height: 200,
-                    decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(16)),
+                    decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(16)),
                     child: const Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Icon(Icons.map, size: 48, color: AppColors.grey),
+                      Icon(Icons.map, size: 48, color: AppColors.lightGrey),
                       SizedBox(height: 8),
-                      Text('Map View', style: TextStyle(color: AppColors.grey)),
+                      Text('Map View', style: TextStyle(color: AppColors.lightGrey)),
                     ])),
                   ),
                 ],

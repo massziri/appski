@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
     final todayCalendar = MockData.getTodayCalendar();
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       body: CustomScrollView(
         slivers: [
           // App Bar
@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
             expandedHeight: 60,
             floating: true,
             pinned: true,
-            backgroundColor: AppColors.darkNavy,
+            backgroundColor: AppColors.warmBg,
             title: Row(
               children: [
                 Container(
@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         lang == 'mk' ? banner.titleMk : banner.titleEn,
-                        style: const TextStyle(color: AppColors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(color: AppColors.darkText, fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                   );
@@ -134,7 +134,7 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [AppColors.darkCard, AppColors.darkCardAlt],
+                  colors: [AppColors.darkCard, AppColors.warmSurface],
                 ),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppColors.gold.withOpacity(0.3)),
@@ -163,7 +163,7 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 4),
                           Text(
                             todayCalendar.getSaints(lang).first,
-                            style: const TextStyle(color: AppColors.white, fontSize: 14, fontWeight: FontWeight.w500),
+                            style: const TextStyle(color: AppColors.darkText, fontSize: 14, fontWeight: FontWeight.w500),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -183,7 +183,7 @@ class HomeScreen extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppColors.darkCard,
+                color: AppColors.warmCard,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: InkWell(
@@ -196,13 +196,13 @@ class HomeScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Skopje', style: TextStyle(color: AppColors.lightGrey, fontSize: 12)),
-                          Text('18°C', style: const TextStyle(color: AppColors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+                          Text('Skopje', style: TextStyle(color: AppColors.bodyText, fontSize: 12)),
+                          Text('18°C', style: const TextStyle(color: AppColors.darkText, fontSize: 24, fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
                     Text(lang == 'mk' ? 'Делумно Облачно' : 'Partly Cloudy',
-                        style: TextStyle(color: AppColors.lightGrey, fontSize: 12)),
+                        style: TextStyle(color: AppColors.bodyText, fontSize: 12)),
                   ],
                 ),
               ),
@@ -285,7 +285,7 @@ class HomeScreen extends StatelessWidget {
       onTap: () => context.push(route),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.darkCard,
+          color: AppColors.warmCard,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -295,7 +295,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               label,
-              style: const TextStyle(color: AppColors.white, fontSize: 10, fontWeight: FontWeight.w500),
+              style: const TextStyle(color: AppColors.darkText, fontSize: 10, fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

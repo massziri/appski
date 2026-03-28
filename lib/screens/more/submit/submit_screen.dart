@@ -20,16 +20,16 @@ class _SubmitScreenState extends State<SubmitScreen> {
   Widget build(BuildContext context) {
     final lang = Provider.of<AppState>(context).language;
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Поднеси Листинг' : 'Submit a Listing')),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          Text(lang == 'mk' ? 'Тип на листинг' : 'Listing Type', style: const TextStyle(color: AppColors.lightGrey, fontSize: 13)),
+          Text(lang == 'mk' ? 'Тип на листинг' : 'Listing Type', style: const TextStyle(color: AppColors.bodyText, fontSize: 13)),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(12)),
             child: DropdownButton<String>(
               value: _type, isExpanded: true,
               dropdownColor: AppColors.darkCard,

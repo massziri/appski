@@ -9,18 +9,18 @@ class WebViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(title)),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Icon(Icons.web, size: 64, color: AppColors.grey),
+          const Icon(Icons.web, size: 64, color: AppColors.lightGrey),
           const SizedBox(height: 16),
-          Text(title, style: const TextStyle(color: AppColors.white, fontSize: 18)),
+          Text(title, style: const TextStyle(color: AppColors.darkText, fontSize: 18)),
           const SizedBox(height: 8),
-          Text(url, style: const TextStyle(color: AppColors.grey, fontSize: 12)),
+          Text(url, style: const TextStyle(color: AppColors.lightGrey, fontSize: 12)),
           const SizedBox(height: 16),
           const Text('WebView will load here when\nFirebase/URL is configured',
-            style: TextStyle(color: AppColors.grey, fontSize: 13), textAlign: TextAlign.center),
+            style: TextStyle(color: AppColors.lightGrey, fontSize: 13), textAlign: TextAlign.center),
         ]),
       ),
     );

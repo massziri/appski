@@ -15,14 +15,14 @@ class CalendarDayDetailScreen extends StatelessWidget {
 
     if (day == null) {
       return Scaffold(
-        backgroundColor: AppColors.darkNavy,
+        backgroundColor: AppColors.warmBg,
         appBar: AppBar(title: Text(dateKey)),
-        body: Center(child: Text(lang == 'mk' ? 'Нема податоци' : 'No data available', style: const TextStyle(color: AppColors.grey))),
+        body: Center(child: Text(lang == 'mk' ? 'Нема податоци' : 'No data available', style: const TextStyle(color: AppColors.lightGrey))),
       );
     }
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(dateKey)),
       body: ListView(
         padding: const EdgeInsets.all(20),
@@ -36,7 +36,7 @@ class CalendarDayDetailScreen extends StatelessWidget {
             child: Column(children: [
               const Text('✝️', style: TextStyle(fontSize: 48)),
               const SizedBox(height: 12),
-              Text(lang == 'mk' ? 'Грегоријански: $dateKey' : 'Gregorian: $dateKey', style: const TextStyle(color: AppColors.lightGrey, fontSize: 13)),
+              Text(lang == 'mk' ? 'Грегоријански: $dateKey' : 'Gregorian: $dateKey', style: const TextStyle(color: AppColors.bodyText, fontSize: 13)),
               Text(lang == 'mk' ? 'Јулијански: ${day.julianDate}' : 'Julian: ${day.julianDate}', style: const TextStyle(color: AppColors.gold, fontSize: 13)),
             ]),
           ),
@@ -47,11 +47,11 @@ class CalendarDayDetailScreen extends StatelessWidget {
           ...day.getSaints(lang).map((s) => Container(
             margin: const EdgeInsets.only(bottom: 8),
             padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(12)),
             child: Row(children: [
               const Text('☦️', style: TextStyle(fontSize: 20)),
               const SizedBox(width: 12),
-              Expanded(child: Text(s, style: const TextStyle(color: AppColors.white, fontSize: 14))),
+              Expanded(child: Text(s, style: const TextStyle(color: AppColors.darkText, fontSize: 14))),
             ]),
           )),
           const SizedBox(height: 20),
@@ -60,11 +60,11 @@ class CalendarDayDetailScreen extends StatelessWidget {
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(12)),
             child: Row(children: [
               const Icon(Icons.restaurant, color: AppColors.gold),
               const SizedBox(width: 12),
-              Text(day.fastingRule.replaceAll('_', ' ').toUpperCase(), style: const TextStyle(color: AppColors.white, fontSize: 14, fontWeight: FontWeight.w600)),
+              Text(day.fastingRule.replaceAll('_', ' ').toUpperCase(), style: const TextStyle(color: AppColors.darkText, fontSize: 14, fontWeight: FontWeight.w600)),
             ]),
           ),
           if (day.readings.isNotEmpty) ...[
@@ -74,11 +74,11 @@ class CalendarDayDetailScreen extends StatelessWidget {
             ...day.readings.map((r) => Container(
               margin: const EdgeInsets.only(bottom: 8),
               padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(12)),
+              decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(12)),
               child: Row(children: [
                 const Icon(Icons.book, color: AppColors.info, size: 18),
                 const SizedBox(width: 12),
-                Text(r, style: const TextStyle(color: AppColors.lightGrey, fontSize: 14)),
+                Text(r, style: const TextStyle(color: AppColors.bodyText, fontSize: 14)),
               ]),
             )),
           ],

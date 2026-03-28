@@ -19,7 +19,7 @@ class _TvScreenState extends State<TvScreen> {
     final channel = MockData.tvChannels[_selectedChannel];
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'ТВ во Живо' : 'TV Live Stream')),
       body: Column(
         children: [
@@ -32,21 +32,21 @@ class _TvScreenState extends State<TvScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.live_tv, size: 64, color: AppColors.grey),
+                  const Icon(Icons.live_tv, size: 64, color: AppColors.lightGrey),
                   const SizedBox(height: 12),
-                  Text(channel.name, style: const TextStyle(color: AppColors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text(channel.name, style: const TextStyle(color: AppColors.darkText, fontSize: 18, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(color: AppColors.macedonianRed, borderRadius: BorderRadius.circular(4)),
-                    child: const Text('LIVE', style: TextStyle(color: AppColors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                    child: const Text('LIVE', style: TextStyle(color: AppColors.darkText, fontSize: 12, fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     channel.streamUrl.isEmpty
                       ? (lang == 'mk' ? 'Стримот ќе биде достапен наскоро' : 'Stream coming soon')
                       : '',
-                    style: const TextStyle(color: AppColors.grey, fontSize: 11),
+                    style: const TextStyle(color: AppColors.lightGrey, fontSize: 11),
                   ),
                 ],
               ),
@@ -77,12 +77,12 @@ class _TvScreenState extends State<TvScreen> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(ch.logoUrl, width: 48, height: 48, fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => Container(width: 48, height: 48, color: AppColors.darkSurface, child: const Icon(Icons.tv, color: AppColors.grey))),
+                      errorBuilder: (_, __, ___) => Container(width: 48, height: 48, color: AppColors.warmSurface, child: const Icon(Icons.tv, color: AppColors.lightGrey))),
                   ),
                   const SizedBox(width: 16),
                   Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(ch.name, style: const TextStyle(color: AppColors.white, fontWeight: FontWeight.w600)),
-                    Text(lang == 'mk' ? ch.descriptionMk : ch.descriptionEn, style: const TextStyle(color: AppColors.grey, fontSize: 11)),
+                    Text(ch.name, style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w600)),
+                    Text(lang == 'mk' ? ch.descriptionMk : ch.descriptionEn, style: const TextStyle(color: AppColors.lightGrey, fontSize: 11)),
                   ])),
                   Container(width: 8, height: 8, decoration: BoxDecoration(
                     shape: BoxShape.circle, color: ch.active ? AppColors.success : AppColors.grey)),

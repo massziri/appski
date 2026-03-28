@@ -24,7 +24,7 @@ class _RadioPlayerScreenState extends State<RadioPlayerScreen> {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(lang == 'mk' ? 'Сега Свири' : 'Now Playing'),
@@ -43,7 +43,7 @@ class _RadioPlayerScreenState extends State<RadioPlayerScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: Image.network(station.logoUrl, fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Container(color: AppColors.darkCard,
+                  errorBuilder: (_, __, ___) => Container(color: AppColors.warmCard,
                     child: const Icon(Icons.radio, size: 80, color: AppColors.gold))),
               ),
             ),
@@ -55,7 +55,7 @@ class _RadioPlayerScreenState extends State<RadioPlayerScreen> {
               const SizedBox(width: 6),
               Text('LIVE', style: const TextStyle(color: AppColors.success, fontSize: 12, fontWeight: FontWeight.bold)),
               const SizedBox(width: 16),
-              Text('${station.region} • ${station.genre}', style: const TextStyle(color: AppColors.grey, fontSize: 13)),
+              Text('${station.region} • ${station.genre}', style: const TextStyle(color: AppColors.lightGrey, fontSize: 13)),
             ]),
             const SizedBox(height: 40),
             // Playback controls
@@ -86,7 +86,7 @@ class _RadioPlayerScreenState extends State<RadioPlayerScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Row(
                 children: [
-                  const Icon(Icons.volume_down, color: AppColors.grey, size: 20),
+                  const Icon(Icons.volume_down, color: AppColors.lightGrey, size: 20),
                   Expanded(
                     child: Slider(
                       value: _volume, min: 0, max: 1,
@@ -95,7 +95,7 @@ class _RadioPlayerScreenState extends State<RadioPlayerScreen> {
                       onChanged: (v) => setState(() => _volume = v),
                     ),
                   ),
-                  const Icon(Icons.volume_up, color: AppColors.grey, size: 20),
+                  const Icon(Icons.volume_up, color: AppColors.lightGrey, size: 20),
                 ],
               ),
             ),
@@ -104,7 +104,7 @@ class _RadioPlayerScreenState extends State<RadioPlayerScreen> {
               station.streamUrl.isEmpty
                 ? (lang == 'mk' ? '⚠️ URL на стримот е празен — наскоро' : '⚠️ Stream URL empty — coming soon')
                 : '',
-              style: const TextStyle(color: AppColors.grey, fontSize: 11),
+              style: const TextStyle(color: AppColors.lightGrey, fontSize: 11),
             ),
           ],
         ),

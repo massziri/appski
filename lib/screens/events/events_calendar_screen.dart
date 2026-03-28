@@ -20,7 +20,7 @@ class _EventsCalendarScreenState extends State<EventsCalendarScreen> {
   Widget build(BuildContext context) {
     final lang = Provider.of<AppState>(context).language;
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Календар Настани' : 'Events Calendar')),
       body: Column(
         children: [
@@ -33,7 +33,7 @@ class _EventsCalendarScreenState extends State<EventsCalendarScreen> {
                 IconButton(icon: const Icon(Icons.chevron_left, color: AppColors.white),
                   onPressed: () => setState(() => _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month - 1))),
                 Text(DateFormat('MMMM yyyy').format(_selectedMonth),
-                  style: const TextStyle(color: AppColors.white, fontSize: 18, fontWeight: FontWeight.w600)),
+                  style: const TextStyle(color: AppColors.darkText, fontSize: 18, fontWeight: FontWeight.w600)),
                 IconButton(icon: const Icon(Icons.chevron_right, color: AppColors.white),
                   onPressed: () => setState(() => _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month + 1))),
               ],
@@ -41,11 +41,11 @@ class _EventsCalendarScreenState extends State<EventsCalendarScreen> {
           ),
           // Calendar grid
           _buildCalendarGrid(),
-          const Divider(color: AppColors.darkCard),
+          const Divider(color: AppColors.warmCard),
           // Events for selected day
           Expanded(
             child: _selectedDay == null
-              ? Center(child: Text(lang == 'mk' ? 'Изберете ден' : 'Select a day', style: const TextStyle(color: AppColors.grey)))
+              ? Center(child: Text(lang == 'mk' ? 'Изберете ден' : 'Select a day', style: const TextStyle(color: AppColors.lightGrey)))
               : _buildDayEvents(lang),
           ),
         ],
@@ -63,7 +63,7 @@ class _EventsCalendarScreenState extends State<EventsCalendarScreen> {
       child: Column(
         children: [
           Row(children: ['S','M','T','W','T','F','S'].map((d) =>
-            Expanded(child: Center(child: Text(d, style: const TextStyle(color: AppColors.grey, fontSize: 12, fontWeight: FontWeight.w600))))).toList()),
+            Expanded(child: Center(child: Text(d, style: const TextStyle(color: AppColors.lightGrey, fontSize: 12, fontWeight: FontWeight.w600))))).toList()),
           const SizedBox(height: 8),
           ...List.generate(6, (week) {
             return Row(
@@ -109,7 +109,7 @@ class _EventsCalendarScreenState extends State<EventsCalendarScreen> {
     final dayEvents = MockData.events.where((e) =>
       _selectedDay != null && e.startDate.year == _selectedDay!.year && e.startDate.month == _selectedDay!.month && e.startDate.day == _selectedDay!.day).toList();
 
-    if (dayEvents.isEmpty) return Center(child: Text(lang == 'mk' ? 'Нема настани' : 'No events on this day', style: const TextStyle(color: AppColors.grey)));
+    if (dayEvents.isEmpty) return Center(child: Text(lang == 'mk' ? 'Нема настани' : 'No events on this day', style: const TextStyle(color: AppColors.lightGrey)));
 
     return ListView.builder(
       padding: const EdgeInsets.all(16),
@@ -121,8 +121,8 @@ class _EventsCalendarScreenState extends State<EventsCalendarScreen> {
           leading: Container(width: 48, height: 48, decoration: BoxDecoration(color: AppColors.macedonianRed.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
             child: const Icon(Icons.event, color: AppColors.macedonianRed)),
           title: Text(event.getTitle(lang), style: const TextStyle(color: AppColors.white)),
-          subtitle: Text(event.venue, style: const TextStyle(color: AppColors.grey, fontSize: 12)),
-          trailing: const Icon(Icons.chevron_right, color: AppColors.grey),
+          subtitle: Text(event.venue, style: const TextStyle(color: AppColors.lightGrey, fontSize: 12)),
+          trailing: const Icon(Icons.chevron_right, color: AppColors.lightGrey),
         );
       },
     );

@@ -29,7 +29,7 @@ class _BusinessListScreenState extends State<BusinessListScreen> {
     }).toList();
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Бизниси' : 'Businesses')),
       body: Column(
         children: [
@@ -39,7 +39,7 @@ class _BusinessListScreenState extends State<BusinessListScreen> {
               onChanged: (v) => setState(() => _searchQuery = v),
               decoration: InputDecoration(
                 hintText: lang == 'mk' ? 'Пребарај бизниси...' : 'Search businesses...',
-                prefixIcon: const Icon(Icons.search, color: AppColors.grey),
+                prefixIcon: const Icon(Icons.search, color: AppColors.lightGrey),
               ),
             ),
           ),
@@ -93,7 +93,7 @@ class _BusinessListScreenState extends State<BusinessListScreen> {
           const SizedBox(height: 8),
           Expanded(
             child: filtered.isEmpty
-              ? Center(child: Text(lang == 'mk' ? 'Нема резултати' : 'No results found', style: const TextStyle(color: AppColors.grey)))
+              ? Center(child: Text(lang == 'mk' ? 'Нема резултати' : 'No results found', style: const TextStyle(color: AppColors.lightGrey)))
               : ListView.builder(
                   itemCount: filtered.length,
                   itemBuilder: (context, i) => BusinessCard(

@@ -23,7 +23,7 @@ class _RecipeHubScreenState extends State<RecipeHubScreen> {
       : MockData.recipes.where((r) => r.category == _selectedCategory).toList();
 
     return Scaffold(
-      backgroundColor: AppColors.darkNavy,
+      backgroundColor: AppColors.warmBg,
       appBar: AppBar(title: Text(lang == 'mk' ? 'Рецепти' : 'Recipes')),
       body: Column(
         children: [
@@ -58,26 +58,26 @@ class _RecipeHubScreenState extends State<RecipeHubScreen> {
                 return GestureDetector(
                   onTap: () => context.push('/discover/recipes/${recipe.recipeId}'),
                   child: Container(
-                    decoration: BoxDecoration(color: AppColors.darkCard, borderRadius: BorderRadius.circular(16)),
+                    decoration: BoxDecoration(color: AppColors.warmCard, borderRadius: BorderRadius.circular(16)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ClipRRect(
                           borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                           child: Image.network(recipe.imageUrl, height: 120, width: double.infinity, fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) => Container(height: 120, color: AppColors.darkSurface, child: const Icon(Icons.restaurant, color: AppColors.grey))),
+                            errorBuilder: (_, __, ___) => Container(height: 120, color: AppColors.warmSurface, child: const Icon(Icons.restaurant, color: AppColors.lightGrey))),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(recipe.getTitle(lang), style: const TextStyle(color: AppColors.white, fontSize: 13, fontWeight: FontWeight.w600), maxLines: 2, overflow: TextOverflow.ellipsis),
+                              Text(recipe.getTitle(lang), style: const TextStyle(color: AppColors.darkText, fontSize: 13, fontWeight: FontWeight.w600), maxLines: 2, overflow: TextOverflow.ellipsis),
                               const SizedBox(height: 4),
                               Row(children: [
                                 const Icon(Icons.timer, size: 12, color: AppColors.gold),
                                 const SizedBox(width: 4),
-                                Text('${recipe.prepTime} min', style: const TextStyle(color: AppColors.grey, fontSize: 11)),
+                                Text('${recipe.prepTime} min', style: const TextStyle(color: AppColors.lightGrey, fontSize: 11)),
                                 const SizedBox(width: 8),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
