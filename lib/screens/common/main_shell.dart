@@ -17,18 +17,18 @@ class MainShell extends StatelessWidget {
       body: child,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: AppColors.warmSurface,
+          color: AppColors.warmCard,
           boxShadow: [
             BoxShadow(
-              color: AppColors.accent.withOpacity(0.1),
-              blurRadius: 10,
+              color: AppColors.accent.withOpacity(0.08),
+              blurRadius: 8,
               offset: const Offset(0, -2),
             ),
           ],
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: 6),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -61,17 +61,24 @@ class MainShell extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              size: 26,
-              color: isSelected ? AppColors.macedonianRed : AppColors.grey,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              decoration: BoxDecoration(
+                color: isSelected ? AppColors.primary.withOpacity(0.12) : Colors.transparent,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(
+                icon,
+                size: 24,
+                color: isSelected ? AppColors.primary : AppColors.lightGrey,
+              ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             Text(
               label,
               style: TextStyle(
-                fontSize: 11,
-                color: isSelected ? AppColors.macedonianRed : AppColors.grey,
+                fontSize: 10,
+                color: isSelected ? AppColors.primary : AppColors.lightGrey,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
               ),
             ),

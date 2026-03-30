@@ -32,7 +32,7 @@ class TourismHubScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Colors.black.withOpacity(0.8)]),
+                    colors: [Colors.transparent, AppColors.darkText.withOpacity(0.8)]),
                 ),
                 padding: const EdgeInsets.all(16),
                 child: Column(

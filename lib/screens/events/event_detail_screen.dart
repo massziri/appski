@@ -33,7 +33,7 @@ class EventDetailScreen extends StatelessWidget {
               children: [
                 Image.network(event.imageUrl, fit: BoxFit.cover, errorBuilder: (_, __, ___) => Container(color: AppColors.warmSurface)),
                 Container(decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.7)]))),
+                  colors: [Colors.transparent, AppColors.darkText.withOpacity(0.7)]))),
                 if (daysUntil > 0) Positioned(top: 100, left: 0, right: 0, child: Center(
                   child: Container(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                     decoration: BoxDecoration(color: AppColors.macedonianRed.withOpacity(0.9), borderRadius: BorderRadius.circular(16)),

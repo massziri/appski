@@ -10,19 +10,19 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: Theme.of(context).textTheme.headlineSmall),
+          Text(title, style: const TextStyle(color: AppColors.darkText, fontSize: 16, fontWeight: FontWeight.w600)),
           if (onSeeAll != null)
             GestureDetector(
               onTap: onSeeAll,
-              child: const Row(
+              child: Row(
                 children: [
-                  Text('See All', style: TextStyle(color: AppColors.gold, fontSize: 13)),
-                  SizedBox(width: 4),
-                  Icon(Icons.arrow_forward_ios, size: 12, color: AppColors.gold),
+                  Text('See All', style: TextStyle(color: AppColors.primary, fontSize: 12)),
+                  const SizedBox(width: 4),
+                  Icon(Icons.arrow_forward_ios, size: 11, color: AppColors.primary),
                 ],
               ),
             ),

@@ -33,7 +33,7 @@ class EventCard extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Colors.transparent, Colors.black.withOpacity(0.8)],
+              colors: [Colors.transparent, AppColors.darkText.withOpacity(0.8)],
             ),
           ),
           padding: const EdgeInsets.all(16),
@@ -50,13 +50,13 @@ class EventCard extends StatelessWidget {
                   ),
                   child: Text(
                     '$daysUntil days away',
-                    style: const TextStyle(color: AppColors.darkText, fontSize: 11, fontWeight: FontWeight.w600),
+                    style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
                   ),
                 ),
               const SizedBox(height: 8),
               Text(
                 event.getTitle(lang),
-                style: const TextStyle(color: AppColors.darkText, fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                 maxLines: 2,
               ),
               const SizedBox(height: 4),
