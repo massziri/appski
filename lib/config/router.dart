@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../screens/splash/splash_screen.dart';
 import '../screens/onboarding/onboarding_screen.dart';
+import '../screens/auth/login_screen.dart';
 import '../screens/common/main_shell.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/discover/discover_screen.dart';
@@ -51,6 +52,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/onboarding',
       builder: (context, state) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
       path: '/search',

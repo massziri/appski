@@ -37,17 +37,17 @@
     .screen.active{display:flex}
 
     /* ============ SPLASH ============ */
-    #splash{background:#1A1A2E;align-items:center;justify-content:flex-end;z-index:100;overflow:hidden}
-    #splash::before{content:'';position:absolute;inset:0;background:url('assets/assets/images/Facebook_creation_14142905.jpg') center/cover no-repeat;filter:brightness(.92)}
-    #splash::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,26,46,.12) 0%,rgba(26,26,46,.08) 28%,rgba(26,26,46,.45) 68%,rgba(26,26,46,.88) 100%)}
-    .splash-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:0 28px 42px;text-align:center;width:100%}
-    .splash-title{color:#fff;font-size:32px;letter-spacing:8px;margin-top:28px;font-weight:700;text-shadow:0 4px 22px rgba(0,0,0,.45)}
-    .splash-tagline{color:#fff;font-size:13px;letter-spacing:2px;margin-top:6px;font-style:italic;text-shadow:0 2px 10px rgba(0,0,0,.45)}
-    .splash-tagline-mk{color:rgba(255,255,255,.8);font-size:11px;letter-spacing:1px;margin-top:3px;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+    #splash{background:#F2C65F;align-items:center;justify-content:flex-end;z-index:100;overflow:hidden}
+    #splash::before{content:'';position:absolute;inset:0;background:url('assets/assets/images/branding/appski_yellow_splash.jpg') center/cover no-repeat;filter:none}
+    #splash::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,.04) 0%,rgba(255,255,255,.02) 55%,rgba(122,14,36,.10) 100%)}
+    .splash-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 28px 26px;text-align:center;width:100%;height:100%}
+.splash-title{display:none}
+.splash-tagline{display:none}
+.splash-tagline-mk{display:none}
     .splash-bar{width:220px;height:4px;background:rgba(255,255,255,.18);border-radius:999px;margin-top:28px;overflow:hidden;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
     .splash-bar-inner{width:40%;height:100%;border-radius:999px;background:linear-gradient(90deg,#C41E3A,#D4A843);animation:slide 1.4s ease-in-out infinite}
     @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(380%)}}
-    .splash-powered{margin-top:18px;color:rgba(255,255,255,.78);font-size:10px;letter-spacing:2px}
+.splash-powered{display:none}
 
     /* ============ LOGIN ============ */
     #login{z-index:50}
@@ -79,7 +79,7 @@
     /* Original grey button - Continue without login */
     .btn-grey{background:linear-gradient(135deg,rgba(180,180,180,.55),rgba(140,140,140,.45));
       box-shadow:0 2px 10px rgba(0,0,0,.2);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-    .login-bottom{height:30px}
+    .login-helper{color:rgba(255,255,255,.82);font-size:12px;line-height:1.5;text-align:center;margin:0 8px 14px}.btn-google{background:#fff;color:#1f1f1f;text-shadow:none;box-shadow:0 4px 18px rgba(0,0,0,.18)}.btn-google .login-btn-icon{font-size:18px;margin-right:12px;color:#4285F4}.btn-google.loading{opacity:.78;pointer-events:none}.home-user{font-size:11px;color:#555;margin-top:2px}.home-right{display:flex;align-items:center;gap:8px}.home-logout-btn{background:rgba(255,255,255,.5);border-radius:999px;padding:8px 12px;color:#333;font-size:11px;font-weight:700;display:none}.home-logout-btn.show{display:inline-flex}.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(18px);background:rgba(26,26,46,.95);color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:all .25s ease;z-index:400;max-width:calc(100vw - 40px);text-align:center}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.login-bottom{height:30px}
 
     /* ============ HOME ============ */
     #home{z-index:40;
@@ -187,33 +187,6 @@
     <div class="login-bg" data-bg="2">
       <img src="assets/assets/images/external/otesevo-prespa-wikimedia.jpg" alt="">
     </div>
-    <div class="login-bg" data-bg="3">
-      <img src="assets/assets/images/Facebook_creation_14343097.jpg" alt="">
-    </div>
-    <div class="login-bg" data-bg="4">
-      <img src="assets/assets/images/Facebook_creation_14353792.jpg" alt="">
-    </div>
-    <div class="login-bg" data-bg="5">
-      <img src="assets/assets/images/Facebook_creation_14336433.jpg" alt="">
-    </div>
-    <div class="login-bg" data-bg="6">
-      <img src="assets/assets/images/Facebook_creation_14315083.jpg" alt="">
-    </div>
-    <div class="login-bg" data-bg="7">
-      <img src="assets/assets/images/Facebook_creation_14245901.jpg" alt="">
-    </div>
-    <div class="login-bg" data-bg="8">
-      <img src="assets/assets/images/Facebook_creation_14257753.jpg" alt="">
-    </div>
-    <div class="login-bg" data-bg="9">
-      <img src="assets/assets/images/Facebook_creation_14278760.jpg" alt="">
-    </div>
-    <div class="login-bg" data-bg="10">
-      <img src="assets/assets/images/Facebook_creation_14286841.jpg" alt="">
-    </div>
-    <div class="login-bg" data-bg="11">
-      <img src="assets/assets/images/Facebook_creation_14226493.jpg" alt="">
-    </div>
 
     <div class="login-overlay"></div>
     <div class="login-content">
@@ -224,12 +197,16 @@
       <div class="login-spacer"></div>
       <div class="login-dots" id="loginDots"></div>
 
-      <!-- Buttons matching original app EXACTLY -->
-      <button class="login-btn btn-green" onclick="showLoginModal()">
+      <div class="login-helper">Sign in with Google to save your Appski profile across devices.</div>
+      <button class="login-btn btn-google" id="googleLoginBtn" onclick="googleLogin()">
+        <span class="login-btn-icon">G</span>
+        Continue with Google
+      </button>
+      <button class="login-btn btn-green" onclick="showGoogleOnlyMessage()">
         <span class="login-btn-icon">&rsaquo;</span>
         Login/Create Appski account
       </button>
-      <button class="login-btn btn-blue" onclick="loginFacebook()">
+      <button class="login-btn btn-blue" onclick="showGoogleOnlyMessage()">
         <span class="login-btn-icon" style="font-family:serif;font-size:24px">f</span>
         Login using Facebook
       </button>
@@ -250,10 +227,14 @@
       <div class="home-title-block">
         <div class="home-title">Welcome to Appski</div>
         <div class="home-subtitle">Connecting the Macedonian People</div>
+        <div class="home-user" id="authStatus">Browsing as guest</div>
       </div>
-      <button class="home-search-btn">
+      <div class="home-right">
+        <button class="home-logout-btn" id="logoutBtn" onclick="logoutGoogle()">Sign out</button>
+        <button class="home-search-btn">
         <span class="material-icons-outlined">search</span>
       </button>
+      </div>
     </div>
 
     <div class="home-grid-wrapper" id="gridWrapper">
@@ -372,15 +353,123 @@
     </div>
   </div>
 </div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    browserLocalPersistence,
+    onAuthStateChanged,
+    setPersistence,
+    signInWithPopup,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC361mySCZuFLiw3E_RPSYyrK975svNTnw",
+    authDomain: "appski-549ec.firebaseapp.com",
+    projectId: "appski-549ec",
+    storageBucket: "appski-549ec.firebasestorage.app",
+    messagingSenderId: "878970763246",
+    appId: "1:878970763246:web:fa1e451aa5acb3f3e340ff",
+    measurementId: "G-Y7W1S26VD7"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  try { getAnalytics(app); } catch (e) {}
+
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
+  setPersistence(auth, browserLocalPersistence).catch(() => {});
+
+  let loginCarouselStarted = false;
+  window.__appskiHasUser = false;
+
+  function updateAuthUi(user) {
+    const authStatus = document.getElementById("authStatus");
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (!authStatus || !logoutBtn) return;
+
+    if (user) {
+      const name = user.displayName || user.email || "Signed in";
+      authStatus.textContent = `Signed in as ${name}`;
+      logoutBtn.classList.add("show");
+      window.__appskiHasUser = true;
+    } else {
+      authStatus.textContent = "Browsing as guest";
+      logoutBtn.classList.remove("show");
+      window.__appskiHasUser = false;
+    }
+  }
+
+  window.startLoginCarouselOnce = function () {
+    if (!loginCarouselStarted) {
+      loginCarouselStarted = true;
+      startLoginCarousel();
+      return;
+    }
+    if (!loginBgTimer) {
+      startLoginCarousel();
+    }
+  };
+
+  window.googleLogin = async function () {
+    const btn = document.getElementById("googleLoginBtn");
+    btn?.classList.add("loading");
+    try {
+      const result = await signInWithPopup(auth, provider);
+      updateAuthUi(result.user);
+      goHome();
+      showToast(`Welcome ${result.user.displayName || "to Appski"}`);
+    } catch (error) {
+      const code = error?.code || "auth/error";
+      if (code !== "auth/popup-closed-by-user") {
+        showToast("Google sign-in could not be completed. Please try again.");
+      }
+    } finally {
+      btn?.classList.remove("loading");
+    }
+  };
+
+  window.logoutGoogle = async function () {
+    try {
+      await signOut(auth);
+      updateAuthUi(null);
+      showScreen("login");
+      window.startLoginCarouselOnce();
+      showToast("You have been signed out.");
+    } catch (e) {
+      showToast("Sign out failed. Please try again.");
+    }
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    updateAuthUi(user);
+    if (user && document.getElementById("home")?.classList.contains("active") === false) {
+      goHome();
+    }
+  });
+</script>
 
 <script>
 // ============ STATE ============
-let loginBgIndex=0, loginBgCount=12, loginBgTimer=null, homePageIndex=0, touchStartX=0;
+let loginBgIndex=0, loginBgCount=3, loginBgTimer=null, homePageIndex=0, touchStartX=0;
 
 // ============ SPLASH -> LOGIN ============
 setTimeout(()=>{
   document.getElementById('splash').classList.add('fade-out');
-  setTimeout(()=>{showScreen('login');startLoginCarousel()},500);
+  setTimeout(()=>{
+    if(window.__appskiHasUser){
+      goHome();
+    } else {
+      showScreen('login');
+      if(window.startLoginCarouselOnce){window.startLoginCarouselOnce();} else {startLoginCarousel();}
+    }
+  },500);
 },2500);
 
 function showScreen(id){
@@ -391,6 +480,7 @@ function showScreen(id){
 
 // ============ LOGIN CAROUSEL ============
 function startLoginCarousel(){
+  if(loginBgTimer) clearInterval(loginBgTimer);
   buildDots();
   loginBgTimer=setInterval(()=>{
     const bgs=document.querySelectorAll('.login-bg');
@@ -419,9 +509,20 @@ function closeLoginModal(e){
     document.getElementById('loginModal').classList.remove('active');
 }
 function doLogin(){
-  if(document.getElementById('loginEmail').value&&document.getElementById('loginPassword').value){closeLoginModal();goHome()}
+  showToast('Google sign-in is ready. Email login can be connected later.');
 }
-function loginFacebook(){goHome()}
+function showGoogleOnlyMessage(){
+  showToast('Google sign-in is ready. Email and Facebook login can be added later.');
+}
+function loginFacebook(){showGoogleOnlyMessage()}
+function showToast(message){
+  const toast=document.getElementById('toast');
+  if(!toast) return;
+  toast.textContent=message;
+  toast.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer=setTimeout(()=>toast.classList.remove('show'),2600);
+}
 function goHome(){if(loginBgTimer)clearInterval(loginBgTimer);showScreen('home')}
 
 // ============ HOME PAGES ============
