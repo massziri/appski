@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../config/app_theme.dart';
@@ -14,6 +15,28 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _loading = false;
   String? _error;
 
+  @override
+  void initState() {
+    super.initState();
+    // Check if we're returning from a redirect sign-in
+    if (kIsWeb) {
+      _checkRedirectResult();
+    }
+  }
+
+  Future<void> _checkRedirectResult() async {
+    try {
+      final result = await FirebaseAuth.instance.getRedirectResult();
+      if (result.user != null && mounted) {
+        context.go('/home');
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _error = 'Sign-in failed. Please try again.');
+      }
+    }
+  }
+
   Future<void> _signInWithGoogle() async {
     setState(() {
       _loading = true;
@@ -23,12 +46,24 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final provider = GoogleAuthProvider()
         ..setCustomParameters({'prompt': 'select_account'});
-      await FirebaseAuth.instance.signInWithPopup(provider);
-      if (mounted) context.go('/home');
+
+      if (kIsWeb) {
+        // Use signInWithRedirect for web (works on both mobile & desktop browsers)
+        // signInWithPopup can fail on mobile browsers due to popup blockers
+        await FirebaseAuth.instance.signInWithRedirect(provider);
+        // After redirect, the page will reload and _checkRedirectResult handles it
+      } else {
+        await FirebaseAuth.instance.signInWithPopup(provider);
+        if (mounted) context.go('/home');
+      }
     } on FirebaseAuthException catch (e) {
-      setState(() => _error = e.message ?? 'Google sign-in failed.');
-    } catch (_) {
-      setState(() => _error = 'Google sign-in failed. Please try again.');
+      if (mounted) {
+        setState(() => _error = e.message ?? 'Google sign-in failed.');
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _error = 'Google sign-in could not be completed. Please try again.');
+      }
     } finally {
       if (mounted) {
         setState(() => _loading = false);
