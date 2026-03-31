@@ -57,20 +57,15 @@
       0% { transform: translateX(-110px); }
       100% { transform: translateX(46px); }
     }
-    /* Hide splash artwork for returning users */
-    .loading.skip-splash::before { display: none; }
   </style>
   <script>
     // ── Splash: show only ONCE ──
-    // On the web, Flutter SharedPreferences uses a key like:
-    //   flutter.has_seen_splash  (in localStorage)
+    // On the web, Flutter SharedPreferences uses key: flutter.has_seen_splash
     // If user has seen the splash before, hide the splash artwork immediately
-    // so they only see a brief gold screen while Flutter loads.
     (function() {
       try {
         var seen = localStorage.getItem('flutter.has_seen_splash');
         if (seen === 'true') {
-          // Mark has_seen_splash so the Dart side also skips
           document.documentElement.classList.add('returning-user');
         }
       } catch(e) {}
@@ -82,7 +77,6 @@
     // Hide splash image for returning users (runs before paint)
     (function() {
       if (document.documentElement.classList.contains('returning-user')) {
-        // Don't show splash image, just show blank gold background
         var style = document.createElement('style');
         style.textContent = '.loading::before { display: none !important; } .loading-bar { display: none !important; } .loading::after { display: none !important; }';
         document.head.appendChild(style);

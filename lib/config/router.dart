@@ -22,6 +22,7 @@ import '../screens/media/media_screen.dart';
 import '../screens/media/radio/radio_list_screen.dart';
 import '../screens/media/radio/radio_player_screen.dart';
 import '../screens/media/tv/tv_screen.dart';
+import '../screens/media/tv_series/tv_series_screen.dart';
 import '../screens/media/news/news_list_screen.dart';
 import '../screens/media/news/news_detail_screen.dart';
 import '../screens/more/more_screen.dart';
@@ -34,6 +35,12 @@ import '../screens/more/about/about_screen.dart';
 import '../screens/more/submit/submit_screen.dart';
 import '../screens/more/contact/contact_screen.dart';
 import '../screens/more/admin/admin_panel_screen.dart';
+import '../screens/more/jokes/jokes_screen.dart';
+import '../screens/more/quiz/quiz_screen.dart';
+import '../screens/more/documents/documents_screen.dart';
+import '../screens/more/currency/currency_screen.dart';
+import '../screens/more/lyrics/lyrics_screen.dart';
+import '../screens/more/giftshop/giftshop_screen.dart';
 import '../screens/common/search_screen.dart';
 import '../screens/common/notifications_screen.dart';
 import '../screens/common/webview_screen.dart';
@@ -177,6 +184,10 @@ final GoRouter appRouter = GoRouter(
               builder: (context, state) => const TvScreen(),
             ),
             GoRoute(
+              path: 'tv-series',
+              builder: (context, state) => const TvSeriesScreen(),
+            ),
+            GoRoute(
               path: 'news',
               builder: (context, state) => const NewsListScreen(),
               routes: [
@@ -209,6 +220,30 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: 'weather',
               builder: (context, state) => const WeatherScreen(),
+            ),
+            GoRoute(
+              path: 'jokes',
+              builder: (context, state) => const JokesScreen(),
+            ),
+            GoRoute(
+              path: 'quiz',
+              builder: (context, state) => const QuizScreen(),
+            ),
+            GoRoute(
+              path: 'documents',
+              builder: (context, state) => const DocumentsScreen(),
+            ),
+            GoRoute(
+              path: 'currency',
+              builder: (context, state) => const CurrencyScreen(),
+            ),
+            GoRoute(
+              path: 'lyrics',
+              builder: (context, state) => const LyricsScreen(),
+            ),
+            GoRoute(
+              path: 'giftshop',
+              builder: (context, state) => const GiftShopScreen(),
             ),
             GoRoute(
               path: 'settings',
