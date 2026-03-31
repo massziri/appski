@@ -58,8 +58,31 @@
       100% { transform: translateX(46px); }
     }
   </style>
+  <script>
+    // ── Splash: show only ONCE ──
+    // On the web, Flutter SharedPreferences uses key: flutter.has_seen_splash
+    // If user has seen the splash before, hide the splash artwork immediately
+    (function() {
+      try {
+        var seen = localStorage.getItem('flutter.has_seen_splash');
+        if (seen === 'true') {
+          document.documentElement.classList.add('returning-user');
+        }
+      } catch(e) {}
+    })();
+  </script>
 </head>
 <body>
+  <script>
+    // Hide splash image for returning users (runs before paint)
+    (function() {
+      if (document.documentElement.classList.contains('returning-user')) {
+        var style = document.createElement('style');
+        style.textContent = '.loading::before { display: none !important; } .loading-bar { display: none !important; } .loading::after { display: none !important; }';
+        document.head.appendChild(style);
+      }
+    })();
+  </script>
   <div class="loading" id="loading"><div class="loading-bar"></div></div>
   <script src="flutter_bootstrap.js" async></script>
 </body>

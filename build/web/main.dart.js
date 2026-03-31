@@ -48111,7 +48111,7 @@ s=this.w
 if(s!=null)s.b0()
 this.a8R()},
 ajO(){var s=this.c
-if(s!=null)A.bY(s).j1("/login",null)},
+if(s!=null)A.bY(s).j1("/home",null)},
 G(a){var s,r,q,p,o,n,m,l,k,j=this,i="assets/images/branding/aria_band.jpg",h=null,g=A.acU(i,A.U(89,B.r.m()>>>16&255,B.r.m()>>>8&255,B.r.m()&255),B.DY,h,B.aS),f=j.d
 f===$&&A.a()
 s=A.a9(h,B.a1m,B.i,h,h,new A.ab(B.He,h,h,A.ak(20),h,h,B.q),h,h,h,B.fM,h,h,h)
@@ -48135,7 +48135,7 @@ if(s.c==null){a.b0()
 return}s.Z(new A.ay7(s))
 if(s.r<=0){a.b0()
 s=s.c
-if(s!=null)A.bY(s).j1("/login",null)}},
+if(s!=null)A.bY(s).j1("/home",null)}},
 $S:119}
 A.ay7.prototype={
 $0(){return this.a.r--},
@@ -48159,13 +48159,11 @@ this.hq()}}
 A.tt.prototype={
 ah(){return new A.a0N()}}
 A.a0N.prototype={
-aB(){this.aO()
-A.cg(B.IC,new A.aBh(this))},
+aB(){this.aO();try{if(window.localStorage.getItem("flutter.has_seen_splash")==="true"){var self=this;window.setTimeout(function(){var s=self.c;if(s!=null)A.bY(s).j1("/home",null)},50);return}}catch(e){}A.cg(B.IC,new A.aBh(this))},
 G(a){var s=null
 return A.c5(s,s,new A.cw(1/0,1/0,A.acU("assets/images/branding/splash_bg.jpg",s,s,new A.aBg(),B.aS),s),s)}}
 A.aBh.prototype={
-$0(){var s=this.a.c
-if(s!=null)A.bY(s).j1("/promo",null)},
+$0(){var s=this.a.c;try{window.localStorage.setItem("flutter.has_seen_splash","true")}catch(e){}if(s!=null)A.bY(s).j1("/promo",null)},
 $S:0}
 A.aBg.prototype={
 $3(a,b,c){var s=null
