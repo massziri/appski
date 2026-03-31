@@ -19,6 +19,7 @@
 .pub-cache/
 .pub/
 /build/
+!/build/web/
 pubspec.lock
 app.*.symbols
 app.*.map.json

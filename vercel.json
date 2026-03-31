@@ -1,7 +1,8 @@
 {
-  "buildCommand": "echo 'Pre-built Flutter Web'",
+  "buildCommand": "bash build.sh",
   "outputDirectory": "build/web",
   "framework": null,
+  "installCommand": "echo 'No npm install needed'",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
