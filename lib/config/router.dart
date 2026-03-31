@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import '../screens/splash/splash_screen.dart';
 import '../screens/promo/promo_screen.dart';
 import '../screens/onboarding/onboarding_screen.dart';
-import '../screens/auth/login_screen.dart';
 import '../screens/common/main_shell.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/discover/discover_screen.dart';
@@ -60,7 +59,7 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: '/login',
-      builder: (context, state) => const LoginScreen(),
+      redirect: (context, state) => '/home',
     ),
     GoRoute(
       path: '/search',
