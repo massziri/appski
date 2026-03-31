@@ -55,7 +55,7 @@ class _PromoScreenState extends State<PromoScreen>
   }
 
   void _navigateNext() {
-    if (mounted) context.go('/login');
+    if (mounted) context.go('/home');
   }
 
   @override
