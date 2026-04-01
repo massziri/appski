@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Appski - MASO Connect</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #FFF8E7; color: #2D1810; overflow-x: hidden; }
+        
+        /* Variables */
+        :root {
+            --red: #8B1A1A; --red-dark: #6B1515; --gold: #D4A843;
+            --cream: #F5E6C8; --light: #FFF8E7; --dark: #2D1810;
+        }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; pointer-events: none; } }
+        @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes zoomKen { from { transform: scale(1); } to { transform: scale(1.15); } }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes cardPop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-in forwards; }
+        .slide-up { animation: slideUp 0.6s ease-out forwards; }
+
+        /* Screens */
+        .screen { display: none; min-height: 100vh; position: relative; }
+        .screen.active { display: flex; flex-direction: column; }
+
+        /* ============ SPLASH SCREEN ============ */
+        #splashScreen {
+            background: linear-gradient(180deg, #F5E6C8 0%, #E8D5A8 100%);
+            align-items: center; justify-content: center;
+        }
+        #splashScreen img { max-width: 90%; max-height: 70vh; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.15)); }
+        .progress-bar { width: 260px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 3px; margin-top: 32px; overflow: hidden; backdrop-filter: blur(4px); }
+        .progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--red), var(--gold)); transition: width 0.1s linear; }
+        .loading-text { margin-top: 12px; font-size: 13px; color: var(--red); font-weight: 500; animation: pulse 2s ease-in-out infinite; }
+
+        /* ============ LOGIN SCREEN ============ */
+        #loginScreen { position: relative; overflow: hidden; }
+        .slideshow-bg { position: absolute; inset: 0; }
+        .slideshow-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out; animation: zoomKen 12s ease-in-out infinite alternate; }
+        .slideshow-img.active { opacity: 1; }
+        .slideshow-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.7) 100%); }
+        .login-content { position: relative; z-index: 10; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+        .login-logo { width: 72px; height: 72px; border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); margin-bottom: 16px; }
+        .login-title { font-size: 36px; font-weight: 800; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .login-subtitle { font-size: 16px; color: var(--gold); font-weight: 500; margin-top: 4px; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+        .login-desc { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+        .login-welcome { font-size: 17px; color: rgba(255,255,255,0.9); margin: 24px 0; font-weight: 300; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+
+        .login-buttons { width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 12px; }
+        .btn { width: 100%; padding: 14px 20px; border-radius: 14px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
+        .btn-fb { background: #1877F2; color: white; box-shadow: 0 4px 12px rgba(24,119,242,0.3); }
+        .btn-fb:hover { background: #1565C0; }
+        .btn-appski { background: var(--red); color: white; box-shadow: 0 4px 12px rgba(139,26,26,0.3); }
+        .btn-appski:hover { background: var(--red-dark); }
+        .btn-guest { background: rgba(255,255,255,0.15); color: white; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); }
+        .btn-guest:hover { background: rgba(255,255,255,0.25); }
+        .btn-submit { background: var(--red); color: white; box-shadow: 0 4px 12px rgba(139,26,26,0.3); }
+        .btn-submit:hover { background: var(--red-dark); }
+        .btn-back { background: transparent; color: var(--red); font-size: 13px; padding: 8px; }
+
+        .dots { display: flex; gap: 6px; margin-top: 24px; }
+        .dot { width: 8px; height: 8px; border-radius: 4px; background: rgba(255,255,255,0.3); transition: all 0.3s; }
+        .dot.active { background: var(--gold); width: 16px; }
+
+        /* Login form */
+        .login-form { width: 100%; max-width: 380px; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); border-radius: 20px; padding: 28px; box-shadow: 0 16px 48px rgba(0,0,0,0.2); }
+        .login-form h2 { font-size: 20px; font-weight: 700; color: var(--red); text-align: center; margin-bottom: 20px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 500; color: #555; margin-bottom: 6px; }
+        .form-group input { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px; font-size: 15px; outline: none; transition: border 0.2s; color: #333; }
+        .form-group input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(139,26,26,0.1); }
+        .form-error { color: #E74C3C; font-size: 13px; margin-bottom: 12px; display: none; }
+
+        /* ============ CATEGORIES SCREEN ============ */
+        #categoriesScreen { background: linear-gradient(180deg, var(--cream) 0%, var(--light) 50%, var(--cream) 100%); }
+        .app-header { background: var(--red); color: white; padding: 12px 16px; display: flex; align-items: center; justify-content: between; box-shadow: 0 2px 12px rgba(139,26,26,0.2); position: sticky; top: 0; z-index: 50; }
+        .header-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+        .header-icon { width: 36px; height: 36px; border-radius: 10px; }
+        .header-title { font-size: 17px; font-weight: 700; line-height: 1.2; }
+        .header-sub { font-size: 11px; color: var(--gold); }
+        .header-right { display: flex; align-items: center; gap: 10px; }
+        .header-user { font-size: 13px; color: rgba(255,255,255,0.8); }
+        .menu-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .menu-btn:hover { background: rgba(255,255,255,0.3); }
+
+        .banner { position: relative; height: 160px; overflow: hidden; }
+        .banner img { width: 100%; height: 100%; object-fit: cover; }
+        .banner-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(139,26,26,0.3) 0%, transparent 50%, rgba(0,0,0,0.5) 100%); }
+        .banner-text { position: absolute; bottom: 16px; left: 16px; color: white; }
+        .banner-text h2 { font-size: 24px; font-weight: 800; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .banner-text p { font-size: 13px; color: rgba(255,255,255,0.9); }
+
+        .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 20px 16px; max-width: 480px; margin: 0 auto; }
+        .cat-card { background: white; border-radius: 16px; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 2px 8px rgba(0,0,0,0.04); cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); animation: cardPop 0.4s ease-out backwards; }
+        .cat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(139,26,26,0.12); }
+        .cat-card:active { transform: translateY(-1px); }
+        .cat-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 8px; }
+        .cat-name { font-size: 11px; font-weight: 600; color: #333; line-height: 1.3; }
+        .cat-name-mk { font-size: 9px; color: #999; margin-top: 2px; }
+
+        .page-dots { display: flex; justify-content: center; gap: 8px; padding: 12px 0 20px; }
+        .page-dot { width: 10px; height: 10px; border-radius: 5px; background: #ddd; border: none; cursor: pointer; transition: all 0.3s; }
+        .page-dot.active { background: var(--red); width: 24px; }
+
+        .bottom-nav { background: white; border-top: 1px solid #eee; padding: 8px 16px; display: flex; justify-content: space-around; position: sticky; bottom: 0; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; padding: 4px 12px; cursor: pointer; }
+        .nav-item span:first-child { font-size: 20px; }
+        .nav-item span:last-child { font-size: 9px; color: #999; margin-top: 2px; }
+
+        /* Dropdown menu */
+        .dropdown { position: absolute; top: 100%; right: 8px; margin-top: 4px; background: white; border-radius: 16px; box-shadow: 0 16px 48px rgba(0,0,0,0.15); width: 220px; z-index: 100; overflow: hidden; display: none; }
+        .dropdown.show { display: block; animation: slideDown 0.2s ease-out; }
+        .dropdown-header { padding: 14px 16px; border-bottom: 1px solid #f0f0f0; }
+        .dropdown-header p:first-child { font-size: 14px; font-weight: 600; color: #333; }
+        .dropdown-header p:last-child { font-size: 11px; color: #999; }
+        .dropdown-item { display: block; width: 100%; padding: 11px 16px; text-align: left; border: none; background: none; font-size: 13px; color: #555; cursor: pointer; }
+        .dropdown-item:hover { background: #f8f8f8; }
+        .dropdown-item.logout { color: #E74C3C; font-weight: 500; border-top: 1px solid #f0f0f0; }
+
+        /* ============ DETAIL SCREEN ============ */
+        #detailScreen { background: linear-gradient(180deg, var(--cream) 0%, var(--light) 100%); }
+        .detail-header { background: var(--red); color: white; padding: 12px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 12px rgba(139,26,26,0.2); position: sticky; top: 0; z-index: 50; }
+        .back-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .back-btn:hover { background: rgba(255,255,255,0.3); }
+        .detail-content { flex: 1; padding: 20px 16px; max-width: 480px; margin: 0 auto; width: 100%; }
+
+        /* Cards */
+        .card { background: white; border-radius: 16px; padding: 18px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .card-image { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
+        .card h4 { font-size: 16px; font-weight: 700; color: #333; }
+        .card .subtitle { font-size: 12px; color: var(--gold); font-weight: 500; }
+        .card p { font-size: 13px; color: #666; margin-top: 6px; line-height: 1.5; }
+        .card .meta { display: flex; gap: 10px; margin-top: 8px; }
+        .card .tag { font-size: 11px; background: #f5f5f5; padding: 4px 10px; border-radius: 20px; color: #666; }
+        .card-accent { border-left: 4px solid var(--red); }
+        .card .date-badge { display: inline-block; font-size: 11px; font-weight: 700; background: var(--red); color: white; padding: 4px 10px; border-radius: 8px; margin-bottom: 8px; }
+
+        /* Business list */
+        .state-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .state-btn { background: white; padding: 14px; border-radius: 14px; border: 1px solid #eee; cursor: pointer; text-align: left; transition: all 0.2s; }
+        .state-btn:hover { border-color: var(--red); box-shadow: 0 4px 12px rgba(139,26,26,0.1); }
+        .state-btn .emoji { font-size: 22px; }
+        .state-btn p { font-size: 13px; font-weight: 600; color: #333; margin-top: 6px; }
+
+        .section-title { font-size: 17px; font-weight: 700; color: var(--red); margin: 16px 0 10px; }
+        .back-link { font-size: 13px; color: var(--red); font-weight: 500; cursor: pointer; margin-bottom: 12px; display: inline-block; }
+
+        /* Weather */
+        .weather-card { display: flex; justify-content: space-between; align-items: center; }
+        .weather-temp { font-size: 28px; font-weight: 800; color: var(--red); }
+        .weather-meta { display: flex; gap: 12px; margin-top: 6px; font-size: 12px; color: #999; }
+
+        /* Radio */
+        .radio-item { display: flex; align-items: center; justify-content: space-between; }
+        .play-btn { width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer; font-size: 18px; transition: all 0.2s; }
+        .play-btn.idle { background: #f0f0f0; color: #666; }
+        .play-btn.playing { background: var(--red); color: white; }
+        .radio-player { position: fixed; bottom: 0; left: 0; right: 0; background: var(--red); color: white; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; z-index: 100; display: none; }
+        .radio-player.active { display: flex; }
+        .radio-player .info { display: flex; align-items: center; gap: 12px; }
+        .radio-player .pulse { font-size: 22px; animation: pulse 1.5s ease-in-out infinite; }
+        .radio-player .stop { background: none; border: none; color: rgba(255,255,255,0.8); cursor: pointer; font-size: 20px; }
+
+        /* Quiz */
+        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .quiz-header span { font-size: 13px; color: #999; }
+        .quiz-score { font-weight: 700; color: var(--red); }
+        .quiz-option { width: 100%; padding: 14px; border-radius: 14px; text-align: left; font-size: 14px; font-weight: 500; border: 2px solid transparent; cursor: pointer; margin-bottom: 8px; transition: all 0.2s; background: #f8f8f8; color: #333; }
+        .quiz-option:hover { background: #f0f0f0; }
+        .quiz-option.correct { background: #E8F5E9; border-color: #4CAF50; color: #2E7D32; }
+        .quiz-option.wrong { background: #FFEBEE; border-color: #F44336; color: #C62828; }
+        .quiz-option.disabled { pointer-events: none; opacity: 0.6; }
+        .quiz-result { text-align: center; padding: 48px 0; }
+        .quiz-result .trophy { font-size: 64px; }
+        .quiz-result h3 { font-size: 24px; font-weight: 800; color: var(--red); margin-top: 16px; }
+        .quiz-result .score-text { font-size: 20px; margin-top: 8px; }
+
+        /* Currency */
+        .currency-input { width: 100%; padding: 14px 16px; border: 1px solid #ddd; border-radius: 14px; font-size: 20px; font-weight: 700; outline: none; color: #333; }
+        .currency-input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(139,26,26,0.1); }
+        .currency-select { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 14px; font-size: 15px; outline: none; color: #333; appearance: auto; }
+        .currency-result { text-align: center; padding: 20px; background: #f8f8f8; border-radius: 14px; margin-top: 16px; }
+        .currency-result .amount { font-size: 30px; font-weight: 800; color: var(--red); }
+        .currency-result .label { font-size: 13px; color: #999; margin-bottom: 6px; }
+
+        /* Contact */
+        .contact-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; }
+        .contact-row .emoji { font-size: 22px; }
+        .contact-row .label { font-size: 12px; color: #999; }
+        .contact-row .value { font-size: 15px; font-weight: 600; color: #333; }
+        .contact-input { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; outline: none; margin-bottom: 12px; font-family: inherit; color: #333; }
+        .contact-input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(139,26,26,0.1); }
+        textarea.contact-input { resize: none; min-height: 100px; }
+
+        /* Placeholder for coming soon */
+        .coming-soon { text-align: center; padding: 64px 20px; }
+        .coming-soon .big-icon { font-size: 64px; }
+        .coming-soon h3 { font-size: 22px; font-weight: 700; color: var(--red); margin-top: 16px; }
+        .coming-soon p { font-size: 14px; color: #999; margin-top: 8px; }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .categories-grid { grid-template-columns: repeat(3, 1fr); max-width: 540px; gap: 16px; }
+            .cat-card { padding: 20px 12px; }
+            .cat-icon { width: 60px; height: 60px; font-size: 28px; }
+            .cat-name { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============ SPLASH SCREEN ============ -->
+    <div id="splashScreen" class="screen active">
+        <img src="splash.png" alt="Appski - MASO Connect" class="fade-in">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <p class="loading-text">Loading Appski...</p>
+    </div>
+
+    <!-- ============ LOGIN SCREEN ============ -->
+    <div id="loginScreen" class="screen">
+        <div class="slideshow-bg">
+            <img src="slideshow/mac1.jpg" class="slideshow-img active" alt="">
+            <img src="slideshow/mac2.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac3.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac4.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac5.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac6.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac7.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac8.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac9.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac10.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac11.jpg" class="slideshow-img" alt="">
+            <img src="slideshow/mac12.jpg" class="slideshow-img" alt="">
+            <div class="slideshow-overlay"></div>
+        </div>
+        <div class="login-content">
+            <img src="icon.png" alt="Appski" class="login-logo fade-in">
+            <h1 class="login-title fade-in">Appski</h1>
+            <p class="login-subtitle">MASO Connect</p>
+            <p class="login-desc">Macedonian Australian Community</p>
+            <p class="login-welcome">Добредојдовте! Welcome to the Macedonian community app.</p>
+
+            <div id="loginButtons" class="login-buttons slide-up">
+                <button class="btn btn-fb" onclick="loginFacebook()">
+                    <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Login with Facebook
+                </button>
+                <button class="btn btn-appski" onclick="showLoginForm()">
+                    <img src="icon.png" width="18" height="18" style="border-radius:4px" alt="">
+                    Login with Appski
+                </button>
+                <button class="btn btn-guest" onclick="loginGuest()">Continue without Login</button>
+            </div>
+
+            <div id="loginForm" class="login-form" style="display:none">
+                <h2>Login with Appski</h2>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                </div>
+                <p class="form-error" id="loginError"></p>
+                <button class="btn btn-submit" onclick="loginAppski()">Login</button>
+                <button class="btn btn-back" onclick="hideLoginForm()">← Back to options</button>
+            </div>
+
+            <div class="dots" id="slideshowDots"></div>
+        </div>
+    </div>
+
+    <!-- ============ CATEGORIES SCREEN ============ -->
+    <div id="categoriesScreen" class="screen">
+        <header class="app-header" style="position:relative">
+            <div class="header-left">
+                <img src="icon.png" alt="Appski" class="header-icon">
+                <div>
+                    <div class="header-title">Appski</div>
+                    <div class="header-sub">MASO Connect</div>
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="header-user" id="headerUser"></span>
+                <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            </div>
+            <div class="dropdown" id="dropdown">
+                <div class="dropdown-header">
+                    <p id="menuUserName">Guest</p>
+                    <p id="menuUserEmail">Not logged in</p>
+                </div>
+                <button class="dropdown-item" onclick="toggleMenu()">My Account</button>
+                <button class="dropdown-item" onclick="toggleMenu()">Favourites</button>
+                <button class="dropdown-item" onclick="toggleMenu()">Send Feedback</button>
+                <button class="dropdown-item" onclick="toggleMenu()">Settings</button>
+                <button class="dropdown-item logout" onclick="logout()">Logout</button>
+            </div>
+        </header>
+        <div class="banner">
+            <img id="bannerImg" src="slideshow/mac1.jpg" alt="Macedonia">
+            <div class="banner-overlay"></div>
+            <div class="banner-text">
+                <h2>Categories</h2>
+                <p>Explore the Macedonian community</p>
+            </div>
+        </div>
+        <div class="categories-grid" id="categoriesGrid"></div>
+        <div class="page-dots" id="pageDots"></div>
+        <div style="flex:1"></div>
+        <nav class="bottom-nav">
+            <div class="nav-item"><span>🏠</span><span>Home</span></div>
+            <div class="nav-item" onclick="openCategory('radio')"><span>📻</span><span>Radio</span></div>
+            <div class="nav-item"><span>❤️</span><span>Favourites</span></div>
+            <div class="nav-item"><span>👤</span><span>Account</span></div>
+        </nav>
+    </div>
+
+    <!-- ============ DETAIL SCREEN ============ -->
+    <div id="detailScreen" class="screen">
+        <header class="detail-header">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div>
+                <div class="header-title" id="detailTitle">Category</div>
+                <div class="header-sub" id="detailSubtitle"></div>
+            </div>
+        </header>
+        <div class="detail-content" id="detailContent"></div>
+    </div>
+
+    <!-- Radio Player -->
+    <div class="radio-player" id="radioPlayer">
+        <div class="info">
+            <span class="pulse">📻</span>
+            <div>
+                <div style="font-weight:600;font-size:14px" id="radioName">Station</div>
+                <div style="font-size:11px;opacity:0.7">Now Playing</div>
+            </div>
+        </div>
+        <button class="stop" onclick="stopRadio()">⏹</button>
+    </div>
+
+<script>
+// ============ APP STATE ============
+let currentScreen = 'splash';
+let currentUser = null;
+let currentPage = 0;
+let currentSlide = 0;
+let slideInterval = null;
+let currentRadio = null;
+let quizState = { current: 0, score: 0, answered: false };
+
+const CATEGORIES = [
+    { id:'business', name:'Business Directory', mk:'Бизнис', icon:'🏢', color:'#E74C3C' },
+    { id:'tourism', name:'Tourism', mk:'Туризам', icon:'🏛️', color:'#3498DB' },
+    { id:'cooking', name:'Cooking', mk:'Рецепти', icon:'🍳', color:'#E67E22' },
+    { id:'news', name:'Latest News', mk:'Вести', icon:'📰', color:'#2ECC71' },
+    { id:'events', name:'Events', mk:'Настани', icon:'🎉', color:'#9B59B6' },
+    { id:'weather', name:'Weather', mk:'Времето', icon:'🌤️', color:'#1ABC9C' },
+    { id:'radio', name:'Macedonian Radio', mk:'Радио', icon:'📻', color:'#F39C12' },
+    { id:'tv', name:'Macedonian TV', mk:'ТВ', icon:'📺', color:'#E74C3C' },
+    { id:'coupons', name:'Coupons', mk:'Купони', icon:'🎟️', color:'#2ECC71' },
+    { id:'jokes', name:'Jokes', mk:'Вицови', icon:'😂', color:'#F1C40F' },
+    { id:'quiz', name:'Quiz', mk:'Квиз', icon:'🧠', color:'#8E44AD' },
+    { id:'calendar', name:'Orthodox Calendar', mk:'Календар', icon:'📅', color:'#D35400' },
+    { id:'currency', name:'Currency Converter', mk:'Валути', icon:'💱', color:'#27AE60' },
+    { id:'documents', name:'Documents', mk:'Документи', icon:'📄', color:'#34495E' },
+    { id:'giftshop', name:'Gift Shop', mk:'Подароци', icon:'🎁', color:'#E91E63' },
+    { id:'lyrics', name:'Lyrics', mk:'Текстови', icon:'🎵', color:'#673AB7' },
+    { id:'map', name:'Kaj si be nashio?', mk:'Каде си?', icon:'🗺️', color:'#00BCD4' },
+    { id:'contact', name:'Contact Us', mk:'Контакт', icon:'✉️', color:'#795548' },
+];
+
+// ============ SCREEN TRANSITIONS ============
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); });
+    const el = document.getElementById(id);
+    el.classList.add('active');
+    el.classList.remove('fade-out');
+    el.classList.add('fade-in');
+    currentScreen = id.replace('Screen','');
+}
+
+function transitionTo(id) {
+    const current = document.querySelector('.screen.active');
+    if (current) current.classList.add('fade-out');
+    setTimeout(() => showScreen(id), 400);
+}
+
+// ============ SPLASH ============
+function initSplash() {
+    let progress = 0;
+    const fill = document.getElementById('progressFill');
+    const interval = setInterval(() => {
+        progress += 2;
+        fill.style.width = progress + '%';
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => transitionTo('loginScreen'), 300);
+            initLogin();
+        }
+    }, 60);
+}
+
+// ============ LOGIN ============
+function initLogin() {
+    const imgs = document.querySelectorAll('.slideshow-img');
+    const dotsContainer = document.getElementById('slideshowDots');
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < imgs.length; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dotsContainer.appendChild(dot);
+    }
+    currentSlide = 0;
+    if (slideInterval) clearInterval(slideInterval);
+    slideInterval = setInterval(() => {
+        imgs[currentSlide].classList.remove('active');
+        dotsContainer.children[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % imgs.length;
+        imgs[currentSlide].classList.add('active');
+        dotsContainer.children[currentSlide].classList.add('active');
+    }, 4000);
+}
+
+function showLoginForm() {
+    document.getElementById('loginButtons').style.display = 'none';
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('loginForm').classList.add('slide-up');
+}
+function hideLoginForm() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('loginButtons').style.display = 'flex';
+}
+
+function loginFacebook() {
+    currentUser = { name: 'Facebook User', email: 'user@facebook.com', method: 'facebook' };
+    proceedToCategories();
+}
+function loginGuest() {
+    currentUser = { name: 'Guest', email: '', method: 'guest' };
+    proceedToCategories();
+}
+function loginAppski() {
+    const email = document.getElementById('loginEmail').value;
+    const pass = document.getElementById('loginPassword').value;
+    const err = document.getElementById('loginError');
+    if (!email || !pass) { err.textContent = 'Please enter email and password'; err.style.display = 'block'; return; }
+    err.style.display = 'none';
+    currentUser = { name: email.split('@')[0], email: email, method: 'appski' };
+    proceedToCategories();
+}
+
+function proceedToCategories() {
+    if (slideInterval) clearInterval(slideInterval);
+    renderCategories();
+    transitionTo('categoriesScreen');
+}
+
+// ============ CATEGORIES ============
+function renderCategories() {
+    const grid = document.getElementById('categoriesGrid');
+    const perPage = 9;
+    const start = currentPage * perPage;
+    const end = Math.min(start + perPage, CATEGORIES.length);
+    const totalPages = Math.ceil(CATEGORIES.length / perPage);
+
+    grid.innerHTML = '';
+    for (let i = start; i < end; i++) {
+        const cat = CATEGORIES[i];
+        const card = document.createElement('div');
+        card.className = 'cat-card';
+        card.style.animationDelay = ((i - start) * 50) + 'ms';
+        card.onclick = () => openCategory(cat.id);
+        card.innerHTML = `
+            <div class="cat-icon" style="background:${cat.color}15">${cat.icon}</div>
+            <div class="cat-name">${cat.name}</div>
+            <div class="cat-name-mk">${cat.mk}</div>
+        `;
+        grid.appendChild(card);
+    }
+
+    const dots = document.getElementById('pageDots');
+    dots.innerHTML = '';
+    for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'page-dot' + (i === currentPage ? ' active' : '');
+        dot.onclick = () => { currentPage = i; renderCategories(); };
+        dots.appendChild(dot);
+    }
+
+    document.getElementById('bannerImg').src = `slideshow/mac${(currentPage % 12) + 1}.jpg`;
+    document.getElementById('headerUser').textContent = currentUser?.method === 'guest' ? 'Guest' : (currentUser?.name || '');
+    document.getElementById('menuUserName').textContent = currentUser?.name || 'Guest';
+    document.getElementById('menuUserEmail').textContent = currentUser?.email || 'Not logged in';
+}
+
+function toggleMenu() {
+    document.getElementById('dropdown').classList.toggle('show');
+}
+function logout() {
+    toggleMenu();
+    currentUser = null;
+    transitionTo('loginScreen');
+    initLogin();
+}
+
+// ============ DETAIL SCREENS ============
+function openCategory(id) {
+    const cat = CATEGORIES.find(c => c.id === id);
+    document.getElementById('detailTitle').textContent = cat.name;
+    document.getElementById('detailSubtitle').textContent = cat.mk;
+    const content = document.getElementById('detailContent');
+    content.innerHTML = getCategoryContent(id);
+    transitionTo('detailScreen');
+}
+function goBack() { renderCategories(); transitionTo('categoriesScreen'); }
+
+function getCategoryContent(id) {
+    switch(id) {
+        case 'business': return getBusinessHTML();
+        case 'tourism': return getTourismHTML();
+        case 'cooking': return getCookingHTML();
+        case 'news': return getNewsHTML();
+        case 'events': return getEventsHTML();
+        case 'weather': return getWeatherHTML();
+        case 'radio': return getRadioHTML();
+        case 'jokes': return getJokesHTML();
+        case 'quiz': return getQuizHTML();
+        case 'currency': return getCurrencyHTML();
+        case 'contact': return getContactHTML();
+        default: {
+            const cat = CATEGORIES.find(c => c.id === id);
+            return `<div class="coming-soon"><div class="big-icon">${cat?.icon || '📱'}</div><h3>${cat?.name || 'Category'}</h3><p>Coming soon! This feature is being developed.</p><p style="margin-top:4px;font-size:13px;color:#bbb">Check back for updates.</p></div>`;
+        }
+    }
+}
+
+// ---- Business ----
+function getBusinessHTML() {
+    const states = ['New South Wales','Victoria','Queensland','Western Australia','South Australia','Tasmania','ACT','Northern Territory'];
+    const types = ['Restaurants','Shops','Services','Churches','Organizations','Sports Clubs','Media','Other'];
+    return `<h3 class="section-title">Browse by State</h3><div class="state-grid">${states.map(s => `<div class="state-btn" onclick="showBusinessState('${s}')"><div class="emoji">📍</div><p>${s}</p></div>`).join('')}</div><h3 class="section-title" style="margin-top:24px">Browse by Type</h3><div class="state-grid">${types.map(t => `<div class="state-btn" onclick="alert('${t} - Coming soon!')"><p>${t}</p></div>`).join('')}</div>`;
+}
+function showBusinessState(state) {
+    const businesses = [
+        {name:'Macedonian Delights',type:'Restaurant',state:'Victoria',phone:'03 9555 1234',addr:'123 Lonsdale St, Melbourne'},
+        {name:'Balkans Grocery',type:'Shop',state:'New South Wales',phone:'02 9333 5678',addr:'45 King St, Sydney'},
+        {name:'St Ilija Church',type:'Church',state:'Victoria',phone:'03 9111 2222',addr:'78 Church St, Preston'},
+        {name:'MPC Sports Club',type:'Sports Club',state:'Victoria',phone:'03 9444 3333',addr:'12 Sports Ave, Thomastown'},
+        {name:'Skopje Bakery',type:'Restaurant',state:'Queensland',phone:'07 3222 9999',addr:'88 Queen St, Brisbane'},
+    ].filter(b => b.state === state);
+    const content = document.getElementById('detailContent');
+    content.innerHTML = `<div class="back-link" onclick="openCategory('business')">← Back to directory</div><h3 class="section-title">${state}</h3>${businesses.length ? businesses.map(b => `<div class="card"><h4>${b.name}</h4><p style="font-size:12px;color:#999">${b.type} • ${b.state}</p><p>📞 ${b.phone}</p><p>📍 ${b.addr}</p></div>`).join('') : '<p style="text-align:center;color:#999;padding:32px">No businesses found. Check back later!</p>'}`;
+}
+
+// ---- Tourism ----
+function getTourismHTML() {
+    const places = [
+        {name:'Lake Ohrid',city:'Ohrid',desc:'UNESCO World Heritage Site, one of the oldest lakes in Europe',img:'slideshow/mac1.jpg'},
+        {name:'Matka Canyon',city:'Skopje',desc:'Stunning canyon with caves, kayaking, and hiking trails',img:'slideshow/mac2.jpg'},
+        {name:'Old Bazaar',city:'Skopje',desc:'One of the oldest and largest bazaars in the Balkans',img:'slideshow/mac3.jpg'},
+        {name:'Mavrovo National Park',city:'Mavrovo',desc:'Beautiful mountain scenery and winter sports',img:'slideshow/mac4.jpg'},
+        {name:'Bitola',city:'City of Consuls',desc:'Historic city with Heraclea ruins and Shirok Sokak',img:'slideshow/mac5.jpg'},
+        {name:'Pelister National Park',city:'Bitola',desc:'Mountain park with ancient Macedonian pine trees',img:'slideshow/mac6.jpg'},
+    ];
+    return places.map(p => `<div class="card" style="padding:0;overflow:hidden"><div style="position:relative;height:160px"><img src="${p.img}" class="card-image" style="margin:0;border-radius:0;height:100%;position:absolute;inset:0"><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div><div style="position:absolute;bottom:12px;left:16px;color:white"><h4 style="color:white">${p.name}</h4><p style="color:rgba(255,255,255,.8);margin:0">${p.city}</p></div></div><p style="padding:14px">${p.desc}</p></div>`).join('');
+}
+
+// ---- Cooking ----
+function getCookingHTML() {
+    const recipes = [
+        {name:'Tavche Gravche',mk:'Тавче Гравче',desc:'Traditional Macedonian baked beans - the national dish',time:'90 min',diff:'Medium'},
+        {name:'Mastika Cake',mk:'Мастика Торта',desc:'Traditional cake flavored with mastika liqueur',time:'120 min',diff:'Hard'},
+        {name:'Turli Tava',mk:'Турли Тава',desc:'Mixed vegetable and meat casserole baked in clay pot',time:'120 min',diff:'Medium'},
+        {name:'Ajvar',mk:'Ајвар',desc:'Roasted red pepper spread - a Balkan delicacy',time:'180 min',diff:'Easy'},
+        {name:'Burek',mk:'Бурек',desc:'Flaky phyllo pastry with cheese, meat, or spinach',time:'60 min',diff:'Medium'},
+        {name:'Zelnik',mk:'Пита со Зелка',desc:'Traditional cabbage pie with crispy layers',time:'90 min',diff:'Easy'},
+    ];
+    return recipes.map(r => `<div class="card"><div style="display:flex;justify-content:space-between"><div><h4>${r.name}</h4><div class="subtitle">${r.mk}</div></div><span style="font-size:28px">🍲</span></div><p>${r.desc}</p><div class="meta"><span class="tag">⏱ ${r.time}</span><span class="tag">📊 ${r.diff}</span></div></div>`).join('');
+}
+
+// ---- News ----
+function getNewsHTML() {
+    const articles = [
+        {title:'Macedonian Cultural Festival 2026',date:'Mar 28, 2026',src:'Appski News',text:'Annual cultural festival showcasing traditional music, dance, and cuisine...'},
+        {title:'New Macedonian Language Classes',date:'Mar 25, 2026',src:'Community',text:'Free Macedonian language classes now available at community centers...'},
+        {title:'Australia-Macedonia Relations Update',date:'Mar 20, 2026',src:'Appski News',text:'Latest developments in bilateral relations between Australia and Macedonia...'},
+        {title:'Youth Sports Tournament Results',date:'Mar 15, 2026',src:'Sports',text:'Macedonian youth teams achieve outstanding results in community tournament...'},
+    ];
+    return articles.map(a => `<div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span class="tag" style="background:#FFF0F0;color:#8B1A1A;font-weight:500">${a.src}</span><span style="font-size:11px;color:#bbb">${a.date}</span></div><h4>${a.title}</h4><p>${a.text}</p></div>`).join('');
+}
+
+// ---- Events ----
+function getEventsHTML() {
+    const events = [
+        {name:'Macedonian Independence Day Celebration',date:'Sep 8, 2026',loc:'Melbourne Convention Centre',desc:'Annual celebration with traditional food, music, and dance performances.'},
+        {name:'Easter Service & Community Gathering',date:'Apr 20, 2026',loc:'St Ilija Church, Preston',desc:'Traditional Orthodox Easter service followed by community lunch.'},
+        {name:'Macedonian Film Night',date:'May 15, 2026',loc:'Palace Cinema, Melbourne',desc:'Screening of award-winning Macedonian films with English subtitles.'},
+        {name:'Traditional Cooking Workshop',date:'Jun 3, 2026',loc:'Community Centre, Sydney',desc:'Learn to make authentic Macedonian dishes with experienced cooks.'},
+    ];
+    return events.map(e => `<div class="card card-accent"><div class="date-badge">${e.date}</div><h4>${e.name}</h4><p style="font-size:12px;color:#999">📍 ${e.loc}</p><p>${e.desc}</p></div>`).join('');
+}
+
+// ---- Weather ----
+function getWeatherHTML() {
+    const cities = [
+        {name:'Скопје (Skopje)',temp:'22°C',cond:'☀️ Sunny',hum:'45%',wind:'12 km/h'},
+        {name:'Охрид (Ohrid)',temp:'19°C',cond:'⛅ Partly Cloudy',hum:'55%',wind:'8 km/h'},
+        {name:'Битола (Bitola)',temp:'20°C',cond:'☀️ Clear',hum:'40%',wind:'15 km/h'},
+        {name:'Прилеп (Prilep)',temp:'21°C',cond:'🌤️ Fair',hum:'42%',wind:'10 km/h'},
+        {name:'Melbourne',temp:'16°C',cond:'🌧️ Rain',hum:'78%',wind:'25 km/h'},
+        {name:'Sydney',temp:'21°C',cond:'⛅ Cloudy',hum:'60%',wind:'18 km/h'},
+    ];
+    return cities.map(c => `<div class="card"><div class="weather-card"><div><h4>${c.name}</h4><p style="margin:0">${c.cond}</p></div><div class="weather-temp">${c.temp}</div></div><div class="weather-meta"><span>💧 ${c.hum}</span><span>💨 ${c.wind}</span></div></div>`).join('');
+}
+
+// ---- Radio ----
+function getRadioHTML() {
+    const stations = [
+        {name:'Radio Makedonija',freq:'Live Stream',genre:'News & Talk'},
+        {name:'Antenna 5',freq:'95.5 FM',genre:'Pop & Hits'},
+        {name:'Radio Kanal 77',freq:'77.0 FM',genre:'Folk & Traditional'},
+        {name:'City Radio',freq:'94.6 FM',genre:'Pop & Dance'},
+        {name:'Radio Slobodna Evropa',freq:'Live Stream',genre:'News'},
+        {name:'Metropolis Radio',freq:'97.5 FM',genre:'Rock & Alternative'},
+    ];
+    return stations.map((s,i) => `<div class="card"><div class="radio-item"><div><h4>${s.name}</h4><p style="margin:0;font-size:12px;color:#999">${s.freq} • ${s.genre}</p></div><button class="play-btn ${currentRadio===i?'playing':'idle'}" onclick="playRadio(${i},'${s.name}')">${currentRadio===i?'⏸':'▶️'}</button></div></div>`).join('');
+}
+function playRadio(idx, name) {
+    if (currentRadio === idx) { stopRadio(); return; }
+    currentRadio = idx;
+    document.getElementById('radioPlayer').classList.add('active');
+    document.getElementById('radioName').textContent = name;
+    openCategory('radio');
+}
+function stopRadio() {
+    currentRadio = null;
+    document.getElementById('radioPlayer').classList.remove('active');
+    if (currentScreen === 'detail') openCategory('radio');
+}
+
+// ---- Jokes ----
+function getJokesHTML() {
+    const jokes = [
+        {en:"Why doesn't the Macedonian go fishing? Because the fish already know him!",mk:'Зошто Македонецот не оди на риболов? Затоа што рибите веќе го знаат!'},
+        {en:"What do you call a policeman on a skateboard? A roller-blade!",mk:'Како се вика полициец на скејтборд? Ролер блејд!'},
+        {en:"What did the cabbage say to the knife? Leave me alone, I have many layers!",mk:'Што рече зелката на ножот? Остави ме на мира, јас имам многу слоеви!'},
+        {en:"My grandma makes the best burek. The recipe is secret... even she doesn't know what she puts in!",mk:'Мојата баба прави најдобрите бурек. Рецептот е тајна... дури и таа не знае што става!'},
+    ];
+    return jokes.map(j => `<div class="card"><p style="font-size:15px;font-weight:500;color:#333">${j.en}</p><p style="font-size:13px;color:#D4A843;font-style:italic;margin-top:8px">${j.mk}</p><div style="text-align:right;margin-top:8px"><span style="font-size:24px">😂</span></div></div>`).join('');
+}
+
+// ---- Quiz ----
+const QUIZ_QUESTIONS = [
+    {q:'What is the capital of Macedonia?',opts:['Ohrid','Bitola','Skopje','Prilep'],ans:2},
+    {q:'What is the national dish of Macedonia?',opts:['Burek','Tavche Gravche','Ajvar','Kebapi'],ans:1},
+    {q:'Lake Ohrid is shared with which country?',opts:['Greece','Serbia','Albania','Bulgaria'],ans:2},
+    {q:'What is the currency of Macedonia?',opts:['Euro','Dinar','Denar','Lev'],ans:2},
+    {q:'Which mountain is the highest in Macedonia?',opts:['Pelister','Korab','Bistra','Galicica'],ans:1},
+];
+
+function getQuizHTML() {
+    if (quizState.current >= QUIZ_QUESTIONS.length) {
+        return `<div class="quiz-result"><div class="trophy">🏆</div><h3>Quiz Complete!</h3><p class="score-text">${quizState.score}/${QUIZ_QUESTIONS.length} correct</p><button class="btn btn-submit" style="max-width:200px;margin:24px auto 0" onclick="resetQuiz()">Play Again</button></div>`;
+    }
+    const q = QUIZ_QUESTIONS[quizState.current];
+    return `<div class="quiz-header"><span>Question ${quizState.current+1}/${QUIZ_QUESTIONS.length}</span><span class="quiz-score">Score: ${quizState.score}</span></div><div class="card"><h4 style="font-size:17px;margin-bottom:16px">${q.q}</h4>${q.opts.map((o,i) => `<button class="quiz-option" id="qopt${i}" onclick="answerQuiz(${i})">${o}</button>`).join('')}<button class="btn btn-submit" id="quizNext" style="display:none;margin-top:12px" onclick="nextQuiz()">${quizState.current+1>=QUIZ_QUESTIONS.length?'See Results':'Next Question'}</button></div>`;
+}
+function answerQuiz(idx) {
+    if (quizState.answered) return;
+    quizState.answered = true;
+    const q = QUIZ_QUESTIONS[quizState.current];
+    if (idx === q.ans) quizState.score++;
+    document.getElementById('qopt'+q.ans).classList.add('correct');
+    if (idx !== q.ans) document.getElementById('qopt'+idx).classList.add('wrong');
+    for (let i = 0; i < q.opts.length; i++) { if (i !== q.ans && i !== idx) document.getElementById('qopt'+i).classList.add('disabled'); }
+    document.getElementById('quizNext').style.display = 'block';
+}
+function nextQuiz() { quizState.current++; quizState.answered = false; openCategory('quiz'); }
+function resetQuiz() { quizState = {current:0,score:0,answered:false}; openCategory('quiz'); }
+
+// ---- Currency ----
+function getCurrencyHTML() {
+    return `<div class="card"><div class="form-group"><label>Amount</label><input type="number" class="currency-input" id="curAmount" value="1000" oninput="convertCurrency()"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="form-group"><label>From</label><select class="currency-select" id="curFrom" onchange="convertCurrency()"><option value="MKD">MKD</option><option value="AUD">AUD</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div><div class="form-group"><label>To</label><select class="currency-select" id="curTo" onchange="convertCurrency()"><option value="AUD">AUD</option><option value="MKD">MKD</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div></div><div class="currency-result"><div class="label">Result</div><div class="amount" id="curResult">29.00 AUD</div></div></div>`;
+}
+function convertCurrency() {
+    const rates = {MKD:1,AUD:0.029,USD:0.018,EUR:0.016,GBP:0.014};
+    const amt = parseFloat(document.getElementById('curAmount').value||'0');
+    const from = document.getElementById('curFrom').value;
+    const to = document.getElementById('curTo').value;
+    const result = (amt * (rates[to]||0) / (rates[from]||1)).toFixed(2);
+    document.getElementById('curResult').textContent = result + ' ' + to;
+}
+
+// ---- Contact ----
+function getContactHTML() {
+    return `<div class="card"><h4 style="color:#8B1A1A;font-size:17px;margin-bottom:14px">Get in Touch</h4><div class="contact-row"><span class="emoji">📞</span><div><div class="label">Phone</div><div class="value">0410 10 40 30</div></div></div><div class="contact-row"><span class="emoji">✉️</span><div><div class="label">Email</div><div class="value">info@appski.com.au</div></div></div><div class="contact-row"><span class="emoji">🌐</span><div><div class="label">Website</div><div class="value">www.appski.com.au</div></div></div></div><div class="card"><h4 style="margin-bottom:14px">Send us a Message</h4><input class="contact-input" placeholder="Your Name"><input class="contact-input" placeholder="Your Email"><textarea class="contact-input" placeholder="Your Message"></textarea><button class="btn btn-submit" onclick="alert('Message sent! Thank you.')">Send Message</button></div><div style="text-align:center;padding:20px"><p style="font-size:11px;color:#bbb">To advertise with us, call 0410 10 40 30</p><p style="font-size:11px;color:#bbb;margin-top:4px">© 2026 Appski - MASO Connect</p></div>`;
+}
+
+// ============ INIT ============
+window.addEventListener('load', initSplash);
+// Close dropdown on outside click
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.menu-btn') && !e.target.closest('.dropdown')) {
+        document.getElementById('dropdown')?.classList.remove('show');
+    }
+});
+</script>
+</body>
+</html>
