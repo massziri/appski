@@ -82,19 +82,61 @@
         .form-group input:focus { border-color: #8B1A1A; box-shadow: 0 0 0 3px rgba(139,26,26,0.1); }
         .form-error { color: #E74C3C; font-size: 13px; margin-bottom: 12px; display: none; }
 
-        /* ============ HOME SCREEN ============ */
-        #homeScreen { 
+        /* ============ 3D CUBE HOME SCREENS ============ */
+        .cube-container {
+            perspective: 1000px;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cube-face {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .cube-face.front {
+            transform: rotateY(0deg);
+            z-index: 10;
+        }
+
+        .cube-face.back {
+            transform: rotateY(180deg);
+            z-index: 5;
+        }
+
+        .cube-container.rotated .cube-face.front {
+            transform: rotateY(90deg);
+            z-index: 5;
+        }
+
+        .cube-container.rotated .cube-face.back {
+            transform: rotateY(90deg);
+            z-index: 10;
+        }
+
+        /* ============ HOME SCREEN FACE 1 ============ */
+        .home-face {
             background: linear-gradient(180deg, #8B8B8B 0%, #9B7B7B 30%, #A86B6B 60%, #8B4545 100%);
             padding: 0;
             overflow-y: auto;
         }
+
         .home-header {
             padding: 16px;
             text-align: center;
             color: white;
         }
+
         .home-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
         .home-header p { font-size: 14px; opacity: 0.9; }
+
         .home-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -102,6 +144,7 @@
             padding: 16px;
             flex: 1;
         }
+
         .category-card {
             aspect-ratio: 1;
             border: 2px solid rgba(255,255,255,0.4);
@@ -116,16 +159,18 @@
             animation: cardPop 0.4s ease-out forwards;
             padding: 12px;
         }
+
         .category-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.15); }
         .category-icon { font-size: 40px; margin-bottom: 8px; }
         .category-name { font-size: 12px; text-align: center; font-weight: 600; line-height: 1.2; }
 
-        /* ============ CATEGORIES SCREEN ============ */
-        #categoriesScreen {
+        /* ============ HOME SCREEN FACE 2 ============ */
+        .categories-face {
             background: linear-gradient(180deg, #7B7B7B 0%, #8B6B6B 30%, #986B6B 60%, #7B3535 100%);
             padding: 0;
             overflow-y: auto;
         }
+
         .categories-header {
             padding: 16px;
             display: flex;
@@ -133,14 +178,52 @@
             gap: 12px;
             color: white;
         }
+
         .categories-header-icon { font-size: 32px; }
         .categories-header h1 { font-size: 24px; font-weight: 700; }
+
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             padding: 16px;
             flex: 1;
+        }
+
+        /* Navigation arrows */
+        .cube-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .cube-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.4);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(4px);
+        }
+
+        .cube-arrow:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .cube-arrow:active {
+            transform: scale(0.95);
         }
 
         /* ============ DETAIL SCREEN ============ */
@@ -241,22 +324,33 @@
         </div>
     </div>
 
-    <!-- ============ HOME SCREEN ============ -->
+    <!-- ============ HOME SCREENS WITH 3D CUBE ============ -->
     <div id="homeScreen" class="screen">
-        <div class="home-header">
-            <h1>Welcome to Appski</h1>
-            <p>Connecting the Macedonian People</p>
-        </div>
-        <div class="home-grid" id="homeGrid"></div>
-    </div>
+        <div class="cube-container" id="cubeContainer">
+            <!-- FACE 1: First 9 Categories -->
+            <div class="cube-face front home-face">
+                <div class="home-header">
+                    <h1>Welcome to Appski</h1>
+                    <p>Connecting the Macedonian People</p>
+                </div>
+                <div class="home-grid" id="homeGrid"></div>
+            </div>
 
-    <!-- ============ CATEGORIES SCREEN ============ -->
-    <div id="categoriesScreen" class="screen">
-        <div class="categories-header">
-            <div class="categories-header-icon">🔴</div>
-            <h1>Categories</h1>
+            <!-- FACE 2: Second 8 Categories -->
+            <div class="cube-face back categories-face">
+                <div class="categories-header">
+                    <div class="categories-header-icon">🔴</div>
+                    <h1>Categories</h1>
+                </div>
+                <div class="categories-grid" id="categoriesGrid"></div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="cube-nav">
+                <button class="cube-arrow" onclick="rotateCubeLeft()" title="Previous">‹</button>
+                <button class="cube-arrow" onclick="rotateCubeRight()" title="Next">›</button>
+            </div>
         </div>
-        <div class="categories-grid" id="categoriesGrid"></div>
     </div>
 
     <!-- ============ DETAIL SCREEN ============ -->
@@ -276,6 +370,7 @@
         let slideInterval = null;
         let adSkipped = false;
         let previousScreen = 'homeScreen';
+        let cubeRotated = false;
 
         // ============ CATEGORIES DATA ============
         const HOME_CATEGORIES = [
@@ -298,193 +393,186 @@
             { id: 'currency', name: 'Currency\nConverter', icon: '💱' },
             { id: 'weather', name: 'Weather', icon: '☀️' },
             { id: 'lyrics', name: 'Lyrics', icon: '🎵' },
-            { id: 'gifts', name: 'Gift shop', icon: '🎁' }
+            { id: 'giftshop', name: 'Gift shop', icon: '🎁' }
         ];
 
-        // ============ SCREEN MANAGEMENT ============
-        function showScreen(id) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+        // ============ INIT ============
+        function init() {
+            initSplash();
+            renderHomeCategories();
+            renderCategories();
+            setupSlideshowDots();
         }
 
-        function transitionTo(id) {
-            const current = document.querySelector('.screen.active');
-            if (current) current.classList.add('fade-out');
-            setTimeout(() => showScreen(id), 300);
-        }
-
-        // ============ SPLASH ============
+        // ============ SPLASH SCREEN ============
         function initSplash() {
             setTimeout(() => {
-                transitionTo('adScreen');
-                setTimeout(() => skipAd(), 5000);
+                showScreen('adScreen');
             }, 3000);
         }
 
         function skipAd() {
             if (adSkipped) return;
             adSkipped = true;
-            initLogin();
-            transitionTo('loginScreen');
+            showScreen('loginScreen');
         }
 
-        // ============ LOGIN ============
-        function initLogin() {
-            const imgs = document.querySelectorAll('.slideshow-img');
+        setTimeout(() => {
+            if (!adSkipped) skipAd();
+        }, 8000);
+
+        // ============ LOGIN SCREEN ============
+        function setupSlideshowDots() {
             const dotsContainer = document.getElementById('slideshowDots');
+            const slides = document.querySelectorAll('.slideshow-img');
             dotsContainer.innerHTML = '';
-            for (let i = 0; i < imgs.length; i++) {
+            slides.forEach((_, i) => {
                 const dot = document.createElement('div');
                 dot.className = 'dot' + (i === 0 ? ' active' : '');
                 dotsContainer.appendChild(dot);
-            }
-            currentSlide = 0;
-            if (slideInterval) clearInterval(slideInterval);
+            });
+            startSlideshow();
+        }
+
+        function startSlideshow() {
+            const slides = document.querySelectorAll('.slideshow-img');
+            const dots = document.querySelectorAll('.dot');
             slideInterval = setInterval(() => {
-                imgs[currentSlide].classList.remove('active');
-                dotsContainer.children[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % imgs.length;
-                imgs[currentSlide].classList.add('active');
-                dotsContainer.children[currentSlide].classList.add('active');
-            }, 4000);
+                slides[currentSlide].classList.remove('active');
+                dots[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }, 5000);
         }
 
         function showLoginForm() {
             document.getElementById('loginButtons').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'flex';
+            document.getElementById('loginForm').style.flexDirection = 'column';
         }
+
         function hideLoginForm() {
-            document.getElementById('loginForm').style.display = 'none';
             document.getElementById('loginButtons').style.display = 'flex';
+            document.getElementById('loginForm').style.display = 'none';
+        }
+
+        function loginGuest() {
+            showScreen('homeScreen');
         }
 
         function loginFacebook() {
-            currentUser = { name: 'Facebook User' };
-            proceedToHome();
+            alert('Facebook login coming soon!');
         }
-        function loginGuest() {
-            currentUser = { name: 'Guest' };
-            proceedToHome();
+
+        function showLoginForm() {
+            document.getElementById('loginButtons').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'flex';
+            document.getElementById('loginForm').style.flexDirection = 'column';
         }
+
         function loginAppski() {
             const email = document.getElementById('loginEmail').value;
-            const pass = document.getElementById('loginPassword').value;
-            const err = document.getElementById('loginError');
-            if (!email || !pass) { err.textContent = 'Please enter email and password'; err.style.display = 'block'; return; }
-            err.style.display = 'none';
-            currentUser = { name: email.split('@')[0] };
-            proceedToHome();
+            const password = document.getElementById('loginPassword').value;
+            if (email && password) {
+                currentUser = { email };
+                showScreen('homeScreen');
+            }
         }
 
-        function proceedToHome() {
-            if (slideInterval) clearInterval(slideInterval);
-            renderHomeScreen();
-            transitionTo('homeScreen');
-        }
-
-        // ============ HOME SCREEN ============
-        function renderHomeScreen() {
+        // ============ HOME SCREEN - RENDER CATEGORIES ============
+        function renderHomeCategories() {
             const grid = document.getElementById('homeGrid');
             grid.innerHTML = '';
-            HOME_CATEGORIES.forEach((cat, i) => {
+            HOME_CATEGORIES.forEach(cat => {
                 const card = document.createElement('div');
                 card.className = 'category-card';
-                card.style.animationDelay = (i * 50) + 'ms';
-                card.onclick = () => openCategory(cat.id);
-                card.innerHTML = `
-                    <div class="category-icon">${cat.icon}</div>
-                    <div class="category-name">${cat.name}</div>
-                `;
+                card.innerHTML = `<div class="category-icon">${cat.icon}</div><div class="category-name">${cat.name}</div>`;
+                card.onclick = () => showCategoryDetail(cat);
                 grid.appendChild(card);
             });
-            previousScreen = 'homeScreen';
         }
 
-        // ============ CATEGORIES SCREEN ============
         function renderCategories() {
             const grid = document.getElementById('categoriesGrid');
             grid.innerHTML = '';
-            CATEGORIES.forEach((cat, i) => {
+            CATEGORIES.forEach(cat => {
                 const card = document.createElement('div');
                 card.className = 'category-card';
-                card.style.animationDelay = (i * 50) + 'ms';
-                card.onclick = () => openCategory(cat.id);
-                card.innerHTML = `
-                    <div class="category-icon">${cat.icon}</div>
-                    <div class="category-name">${cat.name}</div>
-                `;
+                card.innerHTML = `<div class="category-icon">${cat.icon}</div><div class="category-name">${cat.name}</div>`;
+                card.onclick = () => showCategoryDetail(cat);
                 grid.appendChild(card);
             });
-            previousScreen = 'categoriesScreen';
+        }
+
+        // ============ 3D CUBE ROTATION ============
+        function rotateCubeRight() {
+            const container = document.getElementById('cubeContainer');
+            cubeRotated = !cubeRotated;
+            if (cubeRotated) {
+                container.classList.add('rotated');
+            } else {
+                container.classList.remove('rotated');
+            }
+        }
+
+        function rotateCubeLeft() {
+            const container = document.getElementById('cubeContainer');
+            cubeRotated = !cubeRotated;
+            if (cubeRotated) {
+                container.classList.add('rotated');
+            } else {
+                container.classList.remove('rotated');
+            }
         }
 
         // ============ DETAIL SCREEN ============
-        function openCategory(id) {
-            const allCats = [...HOME_CATEGORIES, ...CATEGORIES];
-            const cat = allCats.find(c => c.id === id);
-            if (!cat) return;
-
-            document.getElementById('detailTitle').textContent = cat.name.replace('\n', ' ');
-
-            let content = '';
-            switch(id) {
-                case 'orthodox':
-                    content = `<div class="coming-soon"><div class="big-icon">✝️</div><h3>Orthodox Calendar</h3><p>Coming soon</p></div>`;
-                    break;
-                case 'quiz':
-                    content = `<div class="quiz-container"><div class="quiz-question">What is the capital of Macedonia?</div><div class="quiz-options"><div class="quiz-option" onclick="selectAnswer(this)">Skopje</div><div class="quiz-option" onclick="selectAnswer(this)">Bitola</div><div class="quiz-option" onclick="selectAnswer(this)">Ohrid</div></div></div>`;
-                    break;
-                case 'jokes':
-                    content = `<div class="detail-section"><h3>Macedonian Jokes</h3><div class="detail-item">Why did the Macedonian cross the road? To get to the other side!</div><div class="detail-item">What do you call a Macedonian in space? An astronaut!</div></div>`;
-                    break;
-                case 'documents':
-                    content = `<div class="coming-soon"><div class="big-icon">📄</div><h3>Documents</h3><p>Coming soon</p></div>`;
-                    break;
-                case 'currency':
-                    content = `<div style="padding:16px"><div style="margin-bottom:16px"><label style="font-size:12px;color:#999">Amount</label><input type="number" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:15px;color:#333" placeholder="100" id="currencyAmount"></div><div style="margin-bottom:16px"><label style="font-size:12px;color:#999">From</label><select style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:15px;color:#333"><option>USD</option><option>EUR</option><option>GBP</option></select></div><div><label style="font-size:12px;color:#999">To</label><select style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:15px;color:#333"><option>MKD</option><option>EUR</option><option>USD</option></select></div><div style="text-align:center;padding:20px;background:#f8f8f8;border-radius:8px;margin-top:16px"><div style="font-size:12px;color:#999">Result</div><div style="font-size:30px;font-weight:800;color:#8B1A1A">250 MKD</div></div></div>`;
-                    break;
-                case 'weather':
-                    content = `<div class="coming-soon"><div class="big-icon">☀️</div><h3>Weather</h3><p>Coming soon</p></div>`;
-                    break;
-                case 'lyrics':
-                    content = `<div class="coming-soon"><div class="big-icon">🎵</div><h3>Lyrics</h3><p>Coming soon</p></div>`;
-                    break;
-                case 'gifts':
-                    content = `<div class="coming-soon"><div class="big-icon">🎁</div><h3>Gift Shop</h3><p>Coming soon</p></div>`;
-                    break;
-                default:
-                    content = `<div class="coming-soon"><div class="big-icon">${cat.icon}</div><h3>${cat.name}</h3><p>Coming soon</p></div>`;
+        function showCategoryDetail(category) {
+            previousScreen = 'homeScreen';
+            document.getElementById('detailTitle').textContent = category.name.replace(/\n/g, ' ');
+            const content = document.getElementById('detailContent');
+            
+            if (category.id === 'quiz') {
+                content.innerHTML = `
+                    <div class="quiz-container">
+                        <div class="quiz-question">What is the capital of Macedonia?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectAnswer(this)">Skopje</div>
+                            <div class="quiz-option" onclick="selectAnswer(this)">Bitola</div>
+                            <div class="quiz-option" onclick="selectAnswer(this)">Ohrid</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="coming-soon">
+                        <div class="big-icon">${category.icon}</div>
+                        <h3>${category.name.replace(/\n/g, ' ')}</h3>
+                        <p>Coming soon</p>
+                    </div>
+                `;
             }
+            
+            showScreen('detailScreen');
+        }
 
-            document.getElementById('detailContent').innerHTML = content;
-            transitionTo('detailScreen');
+        function selectAnswer(element) {
+            document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
         }
 
         function goBack() {
-            if (previousScreen === 'homeScreen') {
-                renderHomeScreen();
-                transitionTo('homeScreen');
-            } else if (previousScreen === 'categoriesScreen') {
-                renderCategories();
-                transitionTo('categoriesScreen');
-            }
+            showScreen(previousScreen);
         }
 
-        function selectAnswer(el) {
-            document.querySelectorAll('.quiz-option').forEach(e => e.classList.remove('selected'));
-            el.classList.add('selected');
+        // ============ SCREEN NAVIGATION ============
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
         }
 
-        // ============ INIT ============
-        window.addEventListener('load', () => {
-            initSplash();
-        });
-
-        // Navigate to categories from home
-        window.goToCategories = function() {
-            renderCategories();
-            transitionTo('categoriesScreen');
-        };
+        // ============ START ============
+        init();
     </script>
 </body>
 </html>
