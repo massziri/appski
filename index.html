@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', -apple-system, sans-serif; color: #fff; overflow-x: hidden; }
+        body { font-family: 'Inter', -apple-system, sans-serif; color: #fff; overflow: hidden; }
         
         /* Animations */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -20,7 +20,7 @@
         .fade-out { animation: fadeOut 0.5s ease-in forwards; }
 
         /* Screens */
-        .screen { display: none; min-height: 100vh; position: relative; flex-direction: column; }
+        .screen { display: none; width: 100%; height: 100vh; position: relative; flex-direction: column; }
         .screen.active { display: flex; }
 
         /* ============ SPLASH SCREEN ============ */
@@ -83,55 +83,54 @@
         .form-error { color: #E74C3C; font-size: 13px; margin-bottom: 12px; display: none; }
 
         /* ============ 3D CUBE HOME SCREENS ============ */
-        .cube-container {
-            perspective: 1000px;
-            width: 100%;
-            height: 100vh;
-            position: relative;
+        #homeScreen {
+            perspective: 1200px;
             overflow: hidden;
+        }
+
+        .cube-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .cube-face {
             width: 100%;
             height: 100%;
             position: absolute;
+            top: 0;
+            left: 0;
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow-y: auto;
         }
 
-        .cube-face.front {
-            transform: rotateY(0deg);
-            z-index: 10;
+        .cube-face.face1 {
+            transform: rotateY(0deg) translateZ(0);
         }
 
-        .cube-face.back {
-            transform: rotateY(180deg);
-            z-index: 5;
+        .cube-face.face2 {
+            transform: rotateY(90deg) translateZ(0);
         }
 
-        .cube-container.rotated .cube-face.front {
-            transform: rotateY(90deg);
-            z-index: 5;
-        }
-
-        .cube-container.rotated .cube-face.back {
-            transform: rotateY(90deg);
-            z-index: 10;
+        .cube-wrapper.rotate {
+            transform: rotateY(-90deg);
         }
 
         /* ============ HOME SCREEN FACE 1 ============ */
         .home-face {
             background: linear-gradient(180deg, #8B8B8B 0%, #9B7B7B 30%, #A86B6B 60%, #8B4545 100%);
             padding: 0;
-            overflow-y: auto;
         }
 
         .home-header {
             padding: 16px;
             text-align: center;
             color: white;
+            flex-shrink: 0;
         }
 
         .home-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
@@ -158,6 +157,7 @@
             transition: all 0.3s;
             animation: cardPop 0.4s ease-out forwards;
             padding: 12px;
+            user-select: none;
         }
 
         .category-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.15); }
@@ -168,7 +168,6 @@
         .categories-face {
             background: linear-gradient(180deg, #7B7B7B 0%, #8B6B6B 30%, #986B6B 60%, #7B3535 100%);
             padding: 0;
-            overflow-y: auto;
         }
 
         .categories-header {
@@ -177,6 +176,7 @@
             align-items: center;
             gap: 12px;
             color: white;
+            flex-shrink: 0;
         }
 
         .categories-header-icon { font-size: 32px; }
@@ -188,42 +188,6 @@
             gap: 16px;
             padding: 16px;
             flex: 1;
-        }
-
-        /* Navigation arrows */
-        .cube-nav {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 20;
-        }
-
-        .cube-arrow {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            border: 2px solid rgba(255,255,255,0.4);
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            backdrop-filter: blur(4px);
-        }
-
-        .cube-arrow:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.1);
-        }
-
-        .cube-arrow:active {
-            transform: scale(0.95);
         }
 
         /* ============ DETAIL SCREEN ============ */
@@ -326,9 +290,9 @@
 
     <!-- ============ HOME SCREENS WITH 3D CUBE ============ -->
     <div id="homeScreen" class="screen">
-        <div class="cube-container" id="cubeContainer">
+        <div class="cube-wrapper" id="cubeWrapper">
             <!-- FACE 1: First 9 Categories -->
-            <div class="cube-face front home-face">
+            <div class="cube-face face1 home-face">
                 <div class="home-header">
                     <h1>Welcome to Appski</h1>
                     <p>Connecting the Macedonian People</p>
@@ -337,18 +301,12 @@
             </div>
 
             <!-- FACE 2: Second 8 Categories -->
-            <div class="cube-face back categories-face">
+            <div class="cube-face face2 categories-face">
                 <div class="categories-header">
                     <div class="categories-header-icon">🔴</div>
                     <h1>Categories</h1>
                 </div>
                 <div class="categories-grid" id="categoriesGrid"></div>
-            </div>
-
-            <!-- Navigation Controls -->
-            <div class="cube-nav">
-                <button class="cube-arrow" onclick="rotateCubeLeft()" title="Previous">‹</button>
-                <button class="cube-arrow" onclick="rotateCubeRight()" title="Next">›</button>
             </div>
         </div>
     </div>
@@ -371,6 +329,8 @@
         let adSkipped = false;
         let previousScreen = 'homeScreen';
         let cubeRotated = false;
+        let touchStartX = 0;
+        let touchEndX = 0;
 
         // ============ CATEGORIES DATA ============
         const HOME_CATEGORIES = [
@@ -402,6 +362,7 @@
             renderHomeCategories();
             renderCategories();
             setupSlideshowDots();
+            setupTouchControls();
         }
 
         // ============ SPLASH SCREEN ============
@@ -465,12 +426,6 @@
             alert('Facebook login coming soon!');
         }
 
-        function showLoginForm() {
-            document.getElementById('loginButtons').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'flex';
-            document.getElementById('loginForm').style.flexDirection = 'column';
-        }
-
         function loginAppski() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
@@ -505,24 +460,50 @@
             });
         }
 
-        // ============ 3D CUBE ROTATION ============
-        function rotateCubeRight() {
-            const container = document.getElementById('cubeContainer');
-            cubeRotated = !cubeRotated;
-            if (cubeRotated) {
-                container.classList.add('rotated');
-            } else {
-                container.classList.remove('rotated');
+        // ============ TOUCH/SWIPE CONTROLS ============
+        function setupTouchControls() {
+            const homeScreen = document.getElementById('homeScreen');
+            homeScreen.addEventListener('touchstart', handleTouchStart, false);
+            homeScreen.addEventListener('touchend', handleTouchEnd, false);
+        }
+
+        function handleTouchStart(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }
+
+        function handleTouchEnd(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swiped left - rotate to show second face
+                    rotateCubeToFace2();
+                } else {
+                    // Swiped right - rotate to show first face
+                    rotateCubeToFace1();
+                }
             }
         }
 
-        function rotateCubeLeft() {
-            const container = document.getElementById('cubeContainer');
-            cubeRotated = !cubeRotated;
+        function rotateCubeToFace2() {
+            if (!cubeRotated) {
+                const wrapper = document.getElementById('cubeWrapper');
+                wrapper.classList.add('rotate');
+                cubeRotated = true;
+            }
+        }
+
+        function rotateCubeToFace1() {
             if (cubeRotated) {
-                container.classList.add('rotated');
-            } else {
-                container.classList.remove('rotated');
+                const wrapper = document.getElementById('cubeWrapper');
+                wrapper.classList.remove('rotate');
+                cubeRotated = false;
             }
         }
 
