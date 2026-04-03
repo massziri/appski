@@ -557,135 +557,75 @@
         // ============ DETAIL SCREEN ============
         function showCategoryDetail(category) {
             previousScreen = 'homeScreen';
-            document.getElementById('detailTitle').textContent = category.name.replace(/\n/g, ' ');
+            document.getElementById('detailTitle').textContent = category.name.replace(/
+/g, ' ');
             const content = document.getElementById('detailContent');
             
             if (category.id === 'news') {
                 content.innerHTML = `
-                    <img src="assets/Facebook_creation_38028499.jpg" class="detail-image" alt="Macedonian TV Channels">
-                    <div class="detail-section">
-                        <h3>Macedonian TV Channels</h3>
-                        <ul class="detail-list">
-                            <li><a href="#">TB - Macedonian Television</a></li>
-                            <li><a href="#">Вести (News)</a></li>
-                            <li><a href="#">Сител Дневник</a></li>
-                            <li><a href="#">Телма Вести</a></li>
-                            <li><a href="#">24 Вести</a></li>
-                            <li><a href="#">Алфа Вести</a></li>
-                            <li><a href="#">MTM Вести</a></li>
-                            <li><a href="#">Alsat Вести</a></li>
-                        </ul>
+                    <div style="position: relative; width: 100%; height: 100%; background: url('assets/Facebook_creation_38028499.jpg') center/cover no-repeat;">
+                        <button class="image-overlay-btn" onclick="openChannel('TB')" style="position: absolute; top: 15%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="openChannel('Вести')" style="position: absolute; top: 30%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="openChannel('Сител')" style="position: absolute; top: 45%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="openChannel('Телма')" style="position: absolute; top: 60%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="openChannel('24 Вести')" style="position: absolute; top: 75%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
                     </div>
                 `;
             } else if (category.id === 'businesses') {
                 content.innerHTML = `
-                    <img src="assets/Facebook_creation_38339112.jpg" class="detail-image" alt="Business Listings">
-                    <div class="detail-section">
-                        <h3>Businesses by Location</h3>
-                        <div class="location-item">
-                            <div class="location-name">Newcastle</div>
-                            <div class="location-count">No businesses yet</div>
-                        </div>
-                        <div class="location-item">
-                            <div class="location-name">Perth</div>
-                            <div class="location-count">No businesses yet</div>
-                        </div>
-                        <div class="location-item">
-                            <div class="location-name">Adelaide</div>
-                            <div class="location-count">No businesses yet</div>
-                        </div>
-                        <div class="location-item">
-                            <div class="location-name">Brisbane/Gold Coast</div>
-                            <div class="location-count">No businesses yet</div>
-                        </div>
-                        <div class="location-item">
-                            <div class="location-name">Wollongong</div>
-                            <div class="location-count">2 businesses</div>
-                        </div>
+                    <div style="position: relative; width: 100%; height: 100%; background: url('assets/Facebook_creation_38339112.jpg') center/cover no-repeat;">
+                        <button class="image-overlay-btn" onclick="toggleBusinessList(this, 'newcastle')" style="position: absolute; top: 15%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="toggleBusinessList(this, 'perth')" style="position: absolute; top: 30%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="toggleBusinessList(this, 'adelaide')" style="position: absolute; top: 45%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="toggleBusinessList(this, 'brisbane')" style="position: absolute; top: 60%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="toggleBusinessList(this, 'wollongong')" style="position: absolute; top: 75%; left: 10%; width: 80%; height: 12%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
                     </div>
                 `;
             } else if (category.id === 'series') {
                 content.innerHTML = `
-                    <img src="assets/Facebook_creation_9584035.jpg" class="detail-image" alt="Appski TV Series">
-                    <div class="detail-section">
-                        <h3>Macedonian Entertainment</h3>
-                        <ul class="detail-list">
-                            <li><a href="#">MAKEDONSKI HAUS</a></li>
-                            <li><a href="#">TVRDOKORNI</a></li>
-                            <li><a href="#">MACEDONIAN MOVIES</a></li>
-                            <li><a href="#">BUSAVA AZBUKA</a></li>
-                            <li><a href="#">KURIROT NA GOCE</a></li>
-                        </ul>
+                    <div style="position: relative; width: 100%; height: 100%; background: url('assets/Facebook_creation_9584035.jpg') center/cover no-repeat;">
+                        <button class="image-overlay-btn" onclick="openSeries('MAKEDONSKI HAUS')" style="position: absolute; top: 20%; left: 15%; width: 30%; height: 15%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="openSeries('TVRDOKORNI')" style="position: absolute; top: 20%; right: 15%; width: 30%; height: 15%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="openSeries('MOVIES')" style="position: absolute; top: 45%; left: 15%; width: 30%; height: 15%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="openSeries('BUSAVA')" style="position: absolute; top: 45%; right: 15%; width: 30%; height: 15%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="openSeries('KURIROT')" style="position: absolute; top: 70%; left: 35%; width: 30%; height: 15%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
                     </div>
                 `;
             } else if (category.id === 'jokes') {
                 content.innerHTML = `
-                    <img src="assets/Facebook_creation_9597944.jpg" class="detail-image" alt="Jokes">
-                    <div class="detail-section">
-                        <h3>Macedonian Jokes</h3>
-                        <ul class="detail-list">
-                            <li><a href="#">Home Construction</a></li>
-                            <li><a href="#">Holy Water</a></li>
-                            <li><a href="#">High School Prank</a></li>
-                            <li><a href="#">Having Children - Warnings!</a></li>
-                            <li><a href="#">Hamster Trouble</a></li>
-                            <li><a href="#">Growing up!</a></li>
-                            <li><a href="#">Greatest Hitter</a></li>
-                        </ul>
+                    <div style="position: relative; width: 100%; height: 100%; background: url('assets/Facebook_creation_9597944.jpg') center/cover no-repeat;">
+                        <button class="image-overlay-btn" onclick="displayJoke(this, 'Home Construction')" style="position: absolute; top: 12%; left: 8%; width: 84%; height: 10%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="displayJoke(this, 'Holy Water')" style="position: absolute; top: 24%; left: 8%; width: 84%; height: 10%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="displayJoke(this, 'High School Prank')" style="position: absolute; top: 36%; left: 8%; width: 84%; height: 10%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="displayJoke(this, 'Having Children')" style="position: absolute; top: 48%; left: 8%; width: 84%; height: 10%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="displayJoke(this, 'Hamster Trouble')" style="position: absolute; top: 60%; left: 8%; width: 84%; height: 10%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="displayJoke(this, 'Growing up')" style="position: absolute; top: 72%; left: 8%; width: 84%; height: 10%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
+                        <button class="image-overlay-btn" onclick="displayJoke(this, 'Greatest Hitter')" style="position: absolute; top: 84%; left: 8%; width: 84%; height: 10%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
                     </div>
                 `;
             } else if (category.id === 'currency') {
                 content.innerHTML = `
-                    <img src="assets/Facebook_creation_9609284.jpg" class="detail-image" alt="Currency Converter">
-                    <div class="detail-section">
-                        <h3>Currency Converter</h3>
-                        <div style="margin-bottom: 16px;">
-                            <input type="number" placeholder="Enter amount in MKD" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
-                        </div>
-                        <div class="currency-grid">
-                            <div class="currency-item">
-                                <div class="code">AUD</div>
-                                <div style="font-size: 14px; color: #666;">0</div>
-                            </div>
-                            <div class="currency-item">
-                                <div class="code">CAD</div>
-                                <div style="font-size: 14px; color: #666;">0</div>
-                            </div>
-                            <div class="currency-item">
-                                <div class="code">EUR</div>
-                                <div style="font-size: 14px; color: #666;">0</div>
-                            </div>
-                            <div class="currency-item">
-                                <div class="code">GBP</div>
-                                <div style="font-size: 14px; color: #666;">0</div>
-                            </div>
-                            <div class="currency-item">
-                                <div class="code">USD</div>
-                                <div style="font-size: 14px; color: #666;">0</div>
-                            </div>
-                            <div class="currency-item">
-                                <div class="code">CHF</div>
-                                <div style="font-size: 14px; color: #666;">0</div>
+                    <div style="position: relative; width: 100%; height: 100%; background: url('assets/Facebook_creation_9609284.jpg') center/cover no-repeat;">
+                        <div style="position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%); width: 90%; background: rgba(255,255,255,0.95); padding: 16px; border-radius: 12px;">
+                            <input type="number" id="mkdInput" placeholder="Enter MKD" oninput="convertCurrency()" value="100" style="width: 100%; padding: 12px; border: 2px solid #8B1A1A; border-radius: 8px; font-size: 14px; margin-bottom: 12px; box-sizing: border-box;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                <div style="text-align: center; padding: 8px; background: #f8f8f8; border-radius: 6px;"><strong style="color: #8B1A1A;">AUD</strong><br><span id="aud-value" style="font-size: 12px;">0</span></div>
+                                <div style="text-align: center; padding: 8px; background: #f8f8f8; border-radius: 6px;"><strong style="color: #8B1A1A;">CAD</strong><br><span id="cad-value" style="font-size: 12px;">0</span></div>
+                                <div style="text-align: center; padding: 8px; background: #f8f8f8; border-radius: 6px;"><strong style="color: #8B1A1A;">EUR</strong><br><span id="eur-value" style="font-size: 12px;">0</span></div>
+                                <div style="text-align: center; padding: 8px; background: #f8f8f8; border-radius: 6px;"><strong style="color: #8B1A1A;">GBP</strong><br><span id="gbp-value" style="font-size: 12px;">0</span></div>
+                                <div style="text-align: center; padding: 8px; background: #f8f8f8; border-radius: 6px;"><strong style="color: #8B1A1A;">USD</strong><br><span id="usd-value" style="font-size: 12px;">0</span></div>
+                                <div style="text-align: center; padding: 8px; background: #f8f8f8; border-radius: 6px;"><strong style="color: #8B1A1A;">CHF</strong><br><span id="chf-value" style="font-size: 12px;">0</span></div>
                             </div>
                         </div>
                     </div>
                 `;
-            } else if (category.id === 'quiz') {
-                content.innerHTML = `
-                    <div class="quiz-container">
-                        <div class="quiz-question">What is the capital of Macedonia?</div>
-                        <div class="quiz-options">
-                            <div class="quiz-option" onclick="selectAnswer(this)">Skopje</div>
-                            <div class="quiz-option" onclick="selectAnswer(this)">Bitola</div>
-                            <div class="quiz-option" onclick="selectAnswer(this)">Ohrid</div>
-                        </div>
-                    </div>
-                `;
+                setTimeout(() => convertCurrency(), 100);
             } else {
                 content.innerHTML = `
                     <div class="coming-soon">
                         <div class="big-icon">${category.icon}</div>
-                        <h3>${category.name.replace(/\n/g, ' ')}</h3>
+                        <h3>${category.name.replace(/
+/g, ' ')}</h3>
                         <p>Coming soon</p>
                     </div>
                 `;
