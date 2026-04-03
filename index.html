@@ -31,7 +31,7 @@
             min-height: unset !important;
             overflow: hidden;
         }
-        #splashScreen img { width: 100%; height: 100vh; object-fit: cover; object-position: center; display: block; }
+        #splashScreen img { width: 100%; height: 100vh; object-fit: cover; object-position: center; display: block; max-height: 100vh; }
 
         /* ============ AD SCREEN ============ */
         #adScreen {
@@ -41,7 +41,7 @@
             min-height: unset !important;
             overflow: hidden;
         }
-        #adScreen img { width: 100%; height: 100vh; object-fit: cover; object-position: center; display: block; }
+        #adScreen img { width: 100%; height: 100vh; object-fit: cover; object-position: center; display: block; max-height: 100vh; }
         .ad-skip { position: fixed; bottom: 24px; right: 16px; z-index: 10; background: rgba(0,0,0,0.55); color: white; border: 1px solid rgba(255,255,255,0.4); border-radius: 20px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; backdrop-filter: blur(4px); }
 
         /* ============ LOGIN SCREEN ============ */
@@ -111,11 +111,11 @@
         }
 
         .cube-face.face1 {
-            transform: rotateY(0deg) translateZ(600px);
+            transform: rotateY(0deg) translateZ(0px);
         }
 
         .cube-face.face2 {
-            transform: rotateY(90deg) translateZ(600px);
+            transform: rotateY(90deg) translateZ(0px);
         }
 
         .cube-wrapper.rotate {
@@ -135,21 +135,23 @@
             flex-shrink: 0;
         }
 
-        .home-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
-        .home-header p { font-size: 14px; opacity: 0.9; }
+        .home-header h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .home-header p { font-size: 12px; opacity: 0.9; }
 
         .home-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            padding: 16px;
+            gap: 10px;
+            padding: 12px;
             flex: 1;
+            max-height: calc(100vh - 80px);
+            overflow: hidden;
         }
 
         .category-card {
             aspect-ratio: 1;
             border: 2px solid rgba(255,255,255,0.4);
-            border-radius: 20px;
+            border-radius: 16px;
             background: rgba(255,255,255,0.08);
             display: flex;
             flex-direction: column;
@@ -158,13 +160,14 @@
             cursor: pointer;
             transition: all 0.3s;
             animation: cardPop 0.4s ease-out forwards;
-            padding: 12px;
+            padding: 8px;
             user-select: none;
+            min-height: 0;
         }
 
-        .category-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.15); }
-        .category-icon { font-size: 40px; margin-bottom: 8px; }
-        .category-name { font-size: 12px; text-align: center; font-weight: 600; line-height: 1.2; }
+        .category-card:hover { transform: translateY(-2px); background: rgba(255,255,255,0.15); }
+        .category-icon { font-size: 32px; margin-bottom: 6px; }
+        .category-name { font-size: 10px; text-align: center; font-weight: 600; line-height: 1.1; }
 
         /* ============ HOME SCREEN FACE 2 ============ */
         .categories-face {
@@ -181,15 +184,17 @@
             flex-shrink: 0;
         }
 
-        .categories-header-icon { font-size: 32px; }
-        .categories-header h1 { font-size: 24px; font-weight: 700; }
+        .categories-header-icon { font-size: 24px; }
+        .categories-header h1 { font-size: 18px; font-weight: 700; }
 
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            padding: 16px;
+            gap: 10px;
+            padding: 12px;
             flex: 1;
+            max-height: calc(100vh - 80px);
+            overflow: hidden;
         }
 
         /* ============ DETAIL SCREEN ============ */
