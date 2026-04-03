@@ -603,6 +603,41 @@
                         <button class="image-overlay-btn" onclick="displayJoke(this, 'Greatest Hitter')" style="position: absolute; top: 84%; left: 8%; width: 84%; height: 10%; background: rgba(0,0,0,0.1); border: none; cursor: pointer;"></button>
                     </div>
                 `;
+            } else if (category.id === 'events') {
+                const events = [
+                    { img: 'event_images/macedonian_dancing_concert.jpg', title: 'Macedonian Dancing Concert', date: '18 April 2026', venue: 'Macedonian Community Hall, Broadmeadow' },
+                    { img: 'event_images/demirhisarska_vecer.jpg', title: 'Demirhisarska Vecer', date: '25 April 2026', venue: 'Sportski Centar Ilinden, Rockdale' },
+                    { img: 'event_images/kafana_night_tuse_goce.jpg', title: 'Kafana Night with Tuse and Goce', date: '1 May 2026', venue: 'Fun Time Pony, Canberra' },
+                    { img: 'event_images/kafana_balkan_night.jpg', title: 'Kafana Balkan Night', date: '2 May 2026', venue: 'Sun Lounge, Wollongong' },
+                    { img: 'event_images/kleopatra_od_kravari.jpg', title: '\u041a\u043b\u0435\u043e\u043f\u0430\u0442\u0440\u0430 \u043e\u0434 \u041a\u0440\u0430\u0432\u0430\u0440\u0438 (Comedy)', date: '8-16 May 2026', venue: 'Multiple Venues (Sydney/Wollongong)' },
+                    { img: 'event_images/loznanski_ball.jpg', title: 'Loznanski Ball - Sveti Atanas', date: '17 May 2026', venue: 'Ferraro Reception, Campbellfield VIC' },
+                    { img: 'event_images/macedonian_tennis.jpg', title: 'Macedonian Doubles Tennis Tournament', date: '17 May 2026', venue: 'Mortdale Ken Rosewall' },
+                    { img: 'event_images/masquerade_ball_cpf.jpg', title: '2026 Black-Tie Masquerade Ball', date: '29 May 2026', venue: 'Doltone House, Sylvania Waters' },
+                    { img: 'event_images/esenska_igranka.jpg', title: 'Esenska Igranka - Tatjana & Ritam Band', date: '30 May 2026', venue: 'Ilinden Sports Centre, Rockdale' },
+                    { img: 'event_images/winter_ball_pelister.jpg', title: 'Winter Ball - Pelister Richmond', date: '20 June 2026', venue: 'Visy Dior Hotel International, Norwest' },
+                    { img: 'event_images/broadmeadow_magic_60th.jpg', title: 'Broadmeadow Magic FC 60th Anniversary Ball', date: '18 July 2026', venue: 'Newcastle Exhibition & Convention Centre' },
+                    { img: 'event_images/school_50_anniversary.jpg', title: '50 Years - Macedonian School 11 Oktomvri', date: '12 September 2026', venue: 'Emporium Function Centre, Bankstown' },
+                    { img: 'event_images/jordan_mitev_wollongong.jpg', title: 'Jordan Mitev - Australian Tour (Wollongong)', date: '2 October 2026', venue: 'The Fraternity Club, Wollongong' },
+                    { img: 'event_images/jordan_mitev_queanbeyan.jpg', title: 'Jordan Mitev - Australian Tour (Queanbeyan)', date: '17 October 2026', venue: 'Queanbeyan Church Hall' },
+                    { img: 'event_images/jordan_mitev_perth.jpg', title: 'Jordan Mitev - Australian Tour (Perth)', date: '24 October 2026', venue: 'MNO Vardar, Perth' },
+                    { img: 'event_images/macedonian_festival_2026.jpg', title: 'Macedonian Festival 2026', date: '15 November 2026', venue: 'Carss Bush Park' },
+                    { img: 'event_images/sonce_playgroup.jpg', title: 'Sonce - Macedonian Children\'s Playgroup', date: 'Every Friday', venue: 'Saint Nicholas Orthodox Church, Bankstown' },
+                ];
+                content.innerHTML = `
+                    <div style="width:100%;height:100%;overflow-y:auto;background:#1a1020;padding:12px;">
+                        <h3 style="color:#D4A843;text-align:center;margin-bottom:16px;font-size:18px;">\uD83D\uDCC5 Upcoming Events</h3>
+                        ${events.map(e => `
+                            <div style="margin-bottom:16px;border-radius:14px;overflow:hidden;background:#2a1a35;box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+                                <img src="${e.img}" style="width:100%;display:block;" alt="${e.title}">
+                                <div style="padding:12px 14px;">
+                                    <div style="font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;">${e.title}</div>
+                                    <div style="font-size:13px;color:#D4A843;margin-bottom:2px;">\uD83D\uDCC6 ${e.date}</div>
+                                    <div style="font-size:12px;color:rgba(255,255,255,0.6);">\uD83D\uDCCD ${e.venue}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
             } else if (category.id === 'currency') {
                 content.innerHTML = `
                     <div style="position: relative; width: 100%; height: 100%; background: url('assets/Facebook_creation_9609284.jpg') center/cover no-repeat;">
