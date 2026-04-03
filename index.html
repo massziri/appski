@@ -233,6 +233,33 @@
         .location-item { padding: 14px 16px; background: #f8f8f8; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid #8B1A1A; }
         .location-item .location-name { font-weight: 600; color: #333; margin-bottom: 4px; font-size: 16px; }
         .location-item .location-count { font-size: 13px; color: #999; }
+        
+        /* Functional Buttons */
+        .channel-btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #8B1A1A 0%, #6B1515 100%); color: white; border: none; border-radius: 8px; margin-bottom: 10px; cursor: pointer; font-size: 15px; font-weight: 600; transition: all 0.3s; text-align: left; box-shadow: 0 2px 8px rgba(139, 26, 26, 0.2); }
+        .channel-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(139, 26, 26, 0.3); background: linear-gradient(135deg, #6B1515 0%, #4B0F0F 100%); }
+        .channel-btn:active { transform: translateY(0); }
+        
+        .series-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+        .series-tile { padding: 16px; background: linear-gradient(135deg, #8B1A1A 0%, #6B1515 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: center; transition: all 0.3s; box-shadow: 0 2px 8px rgba(139, 26, 26, 0.2); }
+        .series-tile:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(139, 26, 26, 0.3); }
+        .series-tile:active { transform: scale(0.98); }
+        
+        .joke-btn { display: block; width: 100%; padding: 14px 16px; background: #f8f8f8; color: #333; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.3s; text-align: left; }
+        .joke-btn:hover { background: #f0f0f0; border-color: #8B1A1A; transform: translateX(4px); }
+        .joke-btn:active { background: #e8e8e8; }
+        
+        .expandable-btn { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 14px 16px; background: #f8f8f8; color: #333; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; font-size: 15px; font-weight: 600; transition: all 0.3s; }
+        .expandable-btn:hover { background: #f0f0f0; border-color: #8B1A1A; }
+        .expandable-btn.expanded { background: #e8e8e8; border-color: #8B1A1A; }
+        .expandable-btn .arrow { font-size: 18px; transition: transform 0.3s; }
+        .expandable-btn.expanded .arrow { transform: rotate(180deg); }
+        
+        .business-list { display: none; padding: 12px 0; }
+        .business-list.show { display: block; }
+        .business-item { padding: 10px 16px; background: #f5f5f5; border-left: 4px solid #8B1A1A; margin-bottom: 8px; border-radius: 4px; font-size: 13px; }
+        
+        .converter-input { width: 100%; padding: 14px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 15px; margin-bottom: 16px; box-sizing: border-box; }
+        .converter-input:focus { outline: none; border-color: #8B1A1A; box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.1); }
 
         /* Responsive */
         @media (min-width: 768px) {
@@ -684,6 +711,64 @@
 
         // ============ START ============
         init();
+    
+        // ============ TV CHANNELS ============
+        function openChannel(channelName) {
+            alert('Opening: ' + channelName + '\n\nThis would link to the channel stream.');
+        }
+
+        // ============ BUSINESS DIRECTORY ============
+        function toggleBusinessList(button, locationId) {
+            const list = document.getElementById(locationId);
+            button.classList.toggle('expanded');
+            list.classList.toggle('show');
+        }
+
+        // ============ TV SERIES ============
+        function openSeries(seriesName) {
+            alert('Opening: ' + seriesName + '\n\nThis would display the series content.');
+        }
+
+        // ============ JOKES ============
+        function displayJoke(button, jokeCategory) {
+            const jokes = {
+                'Home Construction': 'Why did the builder bring a ladder to the bar? Because he heard the drinks were on the house!',
+                'Holy Water': 'What did the priest say about holy water? It\'s blessed to be here!',
+                'High School Prank': 'Why did the student put their grades in the freezer? Because they wanted to cool off!',
+                'Having Children': 'Having children is like having a small drunk person living in your house!',
+                'Hamster Trouble': 'Why did the hamster go to school? To get a little brighter!',
+                'Growing up': 'Growing up is realizing that your parents were right about everything!',
+                'Greatest Hitter': 'What\'s the difference between a baseball player and a magician? One throws a ball, the other throws a spell!'
+            };
+            
+            const jokeText = jokes[jokeCategory] || 'A joke about ' + jokeCategory;
+            alert(jokeCategory + ':\n\n' + jokeText);
+        }
+
+        // ============ CURRENCY CONVERTER ============
+        function convertCurrency() {
+            const mkdInput = document.getElementById('mkdInput');
+            const amount = parseFloat(mkdInput.value) || 0;
+            
+            // Exchange rates (MKD to other currencies) - approximate rates
+            const rates = {
+                'AUD': 0.016,
+                'CAD': 0.017,
+                'EUR': 0.016,
+                'GBP': 0.014,
+                'USD': 0.017,
+                'CHF': 0.015
+            };
+            
+            Object.keys(rates).forEach(currency => {
+                const value = (amount * rates[currency]).toFixed(2);
+                const element = document.getElementById(currency.toLowerCase() + '-value');
+                if (element) {
+                    element.textContent = value;
+                }
+            });
+        }
+
     </script>
 </body>
 </html>
