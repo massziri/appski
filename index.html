@@ -416,7 +416,7 @@
         function initSplash() {
             setTimeout(() => {
                 showScreen('adScreen');
-            }, 3000);
+            }, 2000);
         }
 
         function skipAd() {
@@ -425,9 +425,10 @@
             showScreen('loginScreen');
         }
 
+        // Auto skip ad after 4 seconds
         setTimeout(() => {
             if (!adSkipped) skipAd();
-        }, 8000);
+        }, 6000);
 
         // ============ LOGIN SCREEN ============
         function setupSlideshowDots() {
