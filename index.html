@@ -558,8 +558,7 @@
         // ============ DETAIL SCREEN ============
         function showCategoryDetail(category) {
             previousScreen = 'homeScreen';
-            document.getElementById('detailTitle').textContent = category.name.replace(/
-/g, ' ');
+            document.getElementById('detailTitle').textContent = category.name.replace(/\n/g, " ");
             const content = document.getElementById('detailContent');
             
             if (category.id === 'news') {
@@ -625,8 +624,7 @@
                 content.innerHTML = `
                     <div class="coming-soon">
                         <div class="big-icon">${category.icon}</div>
-                        <h3>${category.name.replace(/
-/g, ' ')}</h3>
+                        <h3>${category.name.replace(/\n/g, " ")}</h3>
                         <p>Coming soon</p>
                     </div>
                 `;
