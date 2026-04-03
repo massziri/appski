@@ -221,6 +221,19 @@
         .coming-soon h3 { font-size: 22px; font-weight: 700; color: #8B1A1A; margin-top: 16px; }
         .coming-soon p { font-size: 14px; color: #999; margin-top: 8px; }
 
+        /* Detail Screen Images */
+        .detail-image { width: 100%; max-height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 16px; }
+        .detail-list { list-style: none; padding: 0; }
+        .detail-list li { padding: 12px; background: #f8f8f8; border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; }
+        .detail-list li:hover { background: #f0f0f0; transform: translateX(4px); }
+        .detail-list li a { color: #8B1A1A; text-decoration: none; font-weight: 500; }
+        .currency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .currency-item { padding: 12px; background: #f8f8f8; border-radius: 8px; text-align: center; }
+        .currency-item .code { font-weight: 600; color: #8B1A1A; }
+        .location-item { padding: 12px; background: #f8f8f8; border-radius: 8px; margin-bottom: 8px; }
+        .location-item .location-name { font-weight: 600; color: #8B1A1A; margin-bottom: 4px; }
+        .location-item .location-count { font-size: 12px; color: #999; }
+
         /* Responsive */
         @media (min-width: 768px) {
             .home-grid { grid-template-columns: repeat(3, 1fr); max-width: 540px; margin: 0 auto; }
@@ -520,7 +533,117 @@
             document.getElementById('detailTitle').textContent = category.name.replace(/\n/g, ' ');
             const content = document.getElementById('detailContent');
             
-            if (category.id === 'quiz') {
+            if (category.id === 'news') {
+                content.innerHTML = `
+                    <img src="assets/Facebook_creation_38028499.jpg" class="detail-image" alt="Macedonian TV Channels">
+                    <div class="detail-section">
+                        <h3>Macedonian TV Channels</h3>
+                        <ul class="detail-list">
+                            <li><a href="#">TB - Macedonian Television</a></li>
+                            <li><a href="#">Вести (News)</a></li>
+                            <li><a href="#">Сител Дневник</a></li>
+                            <li><a href="#">Телма Вести</a></li>
+                            <li><a href="#">24 Вести</a></li>
+                            <li><a href="#">Алфа Вести</a></li>
+                            <li><a href="#">MTM Вести</a></li>
+                            <li><a href="#">Alsat Вести</a></li>
+                        </ul>
+                    </div>
+                `;
+            } else if (category.id === 'businesses') {
+                content.innerHTML = `
+                    <img src="assets/Facebook_creation_38339112.jpg" class="detail-image" alt="Business Listings">
+                    <div class="detail-section">
+                        <h3>Businesses by Location</h3>
+                        <div class="location-item">
+                            <div class="location-name">Newcastle</div>
+                            <div class="location-count">No businesses yet</div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-name">Perth</div>
+                            <div class="location-count">No businesses yet</div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-name">Adelaide</div>
+                            <div class="location-count">No businesses yet</div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-name">Brisbane/Gold Coast</div>
+                            <div class="location-count">No businesses yet</div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-name">Wollongong</div>
+                            <div class="location-count">2 businesses</div>
+                        </div>
+                    </div>
+                `;
+            } else if (category.id === 'series') {
+                content.innerHTML = `
+                    <img src="assets/Facebook_creation_9584035.jpg" class="detail-image" alt="Appski TV Series">
+                    <div class="detail-section">
+                        <h3>Macedonian Entertainment</h3>
+                        <ul class="detail-list">
+                            <li><a href="#">MAKEDONSKI HAUS</a></li>
+                            <li><a href="#">TVRDOKORNI</a></li>
+                            <li><a href="#">MACEDONIAN MOVIES</a></li>
+                            <li><a href="#">BUSAVA AZBUKA</a></li>
+                            <li><a href="#">KURIROT NA GOCE</a></li>
+                        </ul>
+                    </div>
+                `;
+            } else if (category.id === 'jokes') {
+                content.innerHTML = `
+                    <img src="assets/Facebook_creation_9597944.jpg" class="detail-image" alt="Jokes">
+                    <div class="detail-section">
+                        <h3>Macedonian Jokes</h3>
+                        <ul class="detail-list">
+                            <li><a href="#">Home Construction</a></li>
+                            <li><a href="#">Holy Water</a></li>
+                            <li><a href="#">High School Prank</a></li>
+                            <li><a href="#">Having Children - Warnings!</a></li>
+                            <li><a href="#">Hamster Trouble</a></li>
+                            <li><a href="#">Growing up!</a></li>
+                            <li><a href="#">Greatest Hitter</a></li>
+                        </ul>
+                    </div>
+                `;
+            } else if (category.id === 'currency') {
+                content.innerHTML = `
+                    <img src="assets/Facebook_creation_9609284.jpg" class="detail-image" alt="Currency Converter">
+                    <div class="detail-section">
+                        <h3>Currency Converter</h3>
+                        <div style="margin-bottom: 16px;">
+                            <input type="number" placeholder="Enter amount in MKD" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <div class="currency-grid">
+                            <div class="currency-item">
+                                <div class="code">AUD</div>
+                                <div style="font-size: 14px; color: #666;">0</div>
+                            </div>
+                            <div class="currency-item">
+                                <div class="code">CAD</div>
+                                <div style="font-size: 14px; color: #666;">0</div>
+                            </div>
+                            <div class="currency-item">
+                                <div class="code">EUR</div>
+                                <div style="font-size: 14px; color: #666;">0</div>
+                            </div>
+                            <div class="currency-item">
+                                <div class="code">GBP</div>
+                                <div style="font-size: 14px; color: #666;">0</div>
+                            </div>
+                            <div class="currency-item">
+                                <div class="code">USD</div>
+                                <div style="font-size: 14px; color: #666;">0</div>
+                            </div>
+                            <div class="currency-item">
+                                <div class="code">CHF</div>
+                                <div style="font-size: 14px; color: #666;">0</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (category.id === 'quiz') {
                 content.innerHTML = `
                     <div class="quiz-container">
                         <div class="quiz-question">What is the capital of Macedonia?</div>
