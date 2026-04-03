@@ -94,6 +94,7 @@
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: center center;
         }
 
         .cube-face {
@@ -106,14 +107,15 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            transform-style: preserve-3d;
         }
 
         .cube-face.face1 {
-            transform: rotateY(0deg) translateZ(0);
+            transform: rotateY(0deg) translateZ(600px);
         }
 
         .cube-face.face2 {
-            transform: rotateY(90deg) translateZ(0);
+            transform: rotateY(90deg) translateZ(600px);
         }
 
         .cube-wrapper.rotate {
